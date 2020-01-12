@@ -11,7 +11,7 @@
         name: DataTypes.STRING, // name of the bin
         description: DataTypes.TEXT,
         type: DataTypes.INTEGER,
-        capacity: DataTypes.FLOAT,
+        capacity: DataTypes.FLOAT,                                                                                           
     }, { sequelize, modelName: 'bin' });
 
     module.exports = Bin;
