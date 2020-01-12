@@ -16,7 +16,7 @@
         address: DataTypes.STRING,
         longitude: DataTypes.DOUBLE,
         latitude: DataTypes.DOUBLE
-    });
+    }, { sequelize, modelName: 'location'});
 
     Location.hasMany(Bin);
 
