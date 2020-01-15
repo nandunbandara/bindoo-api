@@ -13,8 +13,10 @@
         firstName: DataTypes.STRING,
         lastName: DataTypes.STRING,
         userType: DataTypes.INTEGER,
+        nic: DataTypes.STRING,
         email: DataTypes.STRING,
-        mobile: DataTypes.STRING
+        mobile: DataTypes.STRING,
+        isActive: DataTypes.BOOLEAN
     }, { sequelize, modelName: 'user'});
 
     User.hasMany(Location);
