@@ -12,6 +12,7 @@
         userType: Joi.number().required(),
         nic: Joi.string().regex(NIC_REGEX).required(),
         email: Joi.string().email().required(),
+        password: Joi.string().required(),
         mobile: Joi.string().regex(MOBILE_REGEX).required()
     });
 
