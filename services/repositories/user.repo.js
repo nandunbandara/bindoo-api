@@ -10,8 +10,11 @@
         return User.create({ uid, firstName, lastName, userType, nic, email, mobile });
      };
 
+     const deleteUserRecord = uid => User.destroy({ where: { uid }});
+
      module.exports = {
-         createNewUserRecord
+         createNewUserRecord,
+         deleteUserRecord
      };
 
 })();

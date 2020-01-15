@@ -4,9 +4,8 @@
   "description": "Waste Management System",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "bash ./scripts/run.dev.sh",
-    "test": "bash ./scripts/test.dev.sh"
+    "test": "bash ./scripts/test.dev.sh",
+    "start": "bash ./scripts/run.dev.sh"
   },
   "repository": {
     "type": "git",
@@ -32,6 +31,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "faker": "^4.1.0",
     "mocha": "^7.0.0",
     "nodemon": "^2.0.2"
   }
