@@ -4,6 +4,7 @@
 
     const bodyParser = require('body-parser');
 
+    const User = require('../models/user.model');
     const Bin = require('../models/bin.model');
     const Location = require('../models/location.model');
     const Council = require('../models/council.model');
