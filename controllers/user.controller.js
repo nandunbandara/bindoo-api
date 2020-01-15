@@ -16,7 +16,7 @@
 
             const firebaseResult = await firebaseAdmin.createNewUser(
                 req.body.email, req.body.password, 
-                req.body.firstName + ' ', req.body.lastName // display name
+                [req.body.firstName, req.body.lastName].join(' ') // display name
             );
 
             logger.info(`[INIT] services.controllers.users.createNewUser: firebase uid ${firebaseResult.uid}`);

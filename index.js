@@ -18,4 +18,6 @@
         logger.info(`Application started on port ${PORT}`);
     });
 
+    module.exports = app;
+
 })();

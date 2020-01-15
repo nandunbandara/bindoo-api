@@ -20,10 +20,12 @@
         Firebase();
 
         // create tables
-        Bin.sync();
-        Location.sync();
-
-        Council.sync();
+        User.sync({ force: true, match: /_test$/ });
+        Location.sync({ force: true, match: /_test$/ });
+        Bin.sync({ force: true, match: /_test$/ });
+        
+    
+        Council.sync({ force: true, match: /_test$/ });
 
         // init routes
         Routes(app);

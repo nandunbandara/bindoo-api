@@ -6,7 +6,6 @@
     const { MOBILE_REGEX, NIC_REGEX } = require('../../regex');
 
     const UserSchema = Joi.object({
-        uid: Joi.string().required(),
         firstName: Joi.string().required(),
         lastName: Joi.string().required(),
         userType: Joi.number().required(),

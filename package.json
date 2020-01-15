@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "bash ./scripts/run.dev.sh"
+    "start": "bash ./scripts/run.dev.sh",
+    "test": "bash ./scripts/test.dev.sh"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,9 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^7.0.0",
     "nodemon": "^2.0.2"
   }
 }

@@ -1,1 +1,1 @@
-DATABASE=wms DB_HOST=localhost DB_USER=root DB_PASSWORD=rootpassword nodemon index.js
+DATABASE=wms_test DB_HOST=localhost DB_USER=root DB_PASSWORD=rootpassword nodemon index.js
