@@ -9,11 +9,14 @@
     const Council = require('../models/council.model');
 
     const Routes = require('../routes');
+    const Firebase = require('./firebase');
 
     const init = app => {
 
         app.use(bodyParser.json());
 
+        // initialize firebase admin
+        Firebase();
 
         // create tables
         Bin.sync();
