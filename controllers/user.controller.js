@@ -45,11 +45,35 @@
 
     };
 
+    const getUserByUid = async (req, res) => {
+
+        try {
+
+            logger.info(`[SVC] services.controllers.users.createNewUser: retrieving user ${req.params.uid}`);
+
+            const result = await UserRepository.getUserByUid(req.params.uid);
+
+            return res.status(HTTP_STATUS.OK).json({
+                success: true, data: result
+            });
+
+        } catch (err) {
+
+            logger.error(`[ERROR] services.controllers.users.getUserByUid: ${err.message}`);
+
+            return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+
+        }
+
+    }
+
     const deleteUser = async (req, res) => {
 
         try {
 
-            logger.info('[SVC] services.controllers.users.deleteUser: deleting user on database');
+            logger.info(`[SVC] services.controllers.users.deleteUser: deleting user on database: uid ${req.params.uid}`);
             await UserRepository.deleteUserRecord(req.params.uid);
 
             logger.info('[SVC] services.controllers.users.deleteUser: deleting user on firebase');
@@ -71,6 +95,7 @@
 
     module.exports = {
         createNewUser,
+        getUserByUid,
         deleteUser,
     };
 

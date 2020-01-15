@@ -2,7 +2,7 @@
 
     'use strict';
 
-    const server = require('../index');
+    const server = require('../../../index');
     
     const chai = require('chai');
     const chaiHttp = require('chai-http');
@@ -13,7 +13,7 @@
     
     chai.use(chaiHttp);
 
-    describe('Users', () => {
+    describe('Users : POST', () => {
 
         let uid;
 
@@ -51,6 +51,12 @@
                 res.should.have.status(HTTP_STATUS.BAD_REQUEST);
                 done();
             });
+
+        });
+
+        it('should delete the user', done => {
+
+            done();
 
         });
 

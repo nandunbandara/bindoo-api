@@ -9,6 +9,8 @@
     const init = app => {
 
         app.post('/users', userSignUpValidator, RequestLogWrapper(UserController.createNewUser));
+        app.get('/users/:uid', RequestLogWrapper(UserController.getUserByUid));
+        app.delete('/users/:uid', RequestLogWrapper(UserController.deleteUser));
 
     };
 
