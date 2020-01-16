@@ -1,1 +1,1 @@
-DATABASE=wms_test DB_HOST=localhost DB_USER=root DB_PASSWORD=rootpassword ./node_modules/mocha/bin/mocha --exit ./**/*.spec.js
+DATABASE=wms_test DB_HOST=localhost DB_USER=root DB_PASSWORD=rootpassword ./node_modules/mocha/bin/mocha --exit ./**/*.spec.js --timeout 8000
