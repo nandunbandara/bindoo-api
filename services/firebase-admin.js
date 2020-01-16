@@ -1,21 +1,22 @@
 (() => {
-  "use strict";
 
-  const admin = require("firebase-admin");
+    'use strict';
 
-  /**
-   *
-   * @param {string} email
-   * @param {string} password
-   * @param {string} displayName : Concat of firstName and lastName
-   */
-  const createNewUser = (email, password, displayName) =>
-    admin.auth().createUser({ email, password, displayName });
+    const admin = require('firebase-admin');
 
-  const deleteUser = uid => admin.auth().deleteUser(uid);
+    /**
+     * 
+     * @param {string} email
+     * @param {string} password 
+     * @param {string} displayName : Concat of firstName and lastName
+     */
+    const createNewUser = (email, password, displayName) => admin.auth().createUser({email, password, displayName});
 
-  module.exports = {
-    createNewUser,
-    deleteUser
-  };
+    const deleteUser = uid => admin.auth().deleteUser(uid);
+
+    module.exports = {
+        createNewUser,
+        deleteUser
+    };
+
 })();

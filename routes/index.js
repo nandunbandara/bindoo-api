@@ -1,11 +1,13 @@
 (() => {
-  "use strict";
 
-  const UserRoutes = require("./user.routes");
+    'use strict';
 
-  const init = app => {
-    UserRoutes.init(app);
-  };
+    const UserRoutes = require('./user.routes');
 
-  module.exports = init;
+    const init = app => {
+        UserRoutes.init(app);
+    };
+
+    module.exports = init;
+    
 })();

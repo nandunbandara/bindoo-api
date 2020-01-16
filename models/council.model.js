@@ -1,19 +1,18 @@
 (() => {
-  "use strict";
 
-  const { Model, DataTypes } = require("sequelize");
-  const sequelize = require("../middleware/database").getConnection();
+    'use strict';
 
-  class Council extends Model {}
+    const { Model, DataTypes } = require('sequelize');
+    const sequelize = require('../middleware/database').getConnection();
 
-  Council.init(
-    {
-      name: DataTypes.STRING,
-      province: DataTypes.INTEGER,
-      district: DataTypes.INTEGER
-    },
-    { sequelize, modelName: "council" }
-  );
+    class Council extends Model {}
 
-  module.exports = Council;
+    Council.init({
+        name: DataTypes.STRING,
+        province: DataTypes.INTEGER,
+        district: DataTypes.INTEGER,
+    }, { sequelize, modelName: 'council' });
+
+    module.exports = Council;
+
 })();

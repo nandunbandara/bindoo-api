@@ -1,28 +1,27 @@
 (() => {
-  "use strict";
 
-  const { Model, DataTypes } = require("sequelize");
-  const sequelize = require("../middleware/database").getConnection();
+    'use strict';
 
-  const Location = require("./location.model");
+    const { Model, DataTypes } = require('sequelize');
+    const sequelize = require('../middleware/database').getConnection();
 
-  class User extends Model {}
+    const Location = require('./location.model');
 
-  User.init(
-    {
-      uid: { type: DataTypes.STRING, primaryKey: true, unique: true },
-      firstName: DataTypes.STRING,
-      lastName: DataTypes.STRING,
-      userType: DataTypes.INTEGER,
-      nic: { type: DataTypes.STRING, unique: true },
-      email: { type: DataTypes.STRING, unique: true },
-      mobile: DataTypes.STRING,
-      isActive: { type: DataTypes.BOOLEAN, defaultValue: false }
-    },
-    { sequelize, modelName: "user" }
-  );
+    class User extends Model {}
 
-  User.hasMany(Location);
+    User.init({
+        uid: { type: DataTypes.STRING, primaryKey: true, unique: true },
+        firstName: DataTypes.STRING,
+        lastName: DataTypes.STRING,
+        userType: DataTypes.INTEGER,
+        nic: { type: DataTypes.STRING, unique: true },
+        email: { type: DataTypes.STRING, unique: true },
+        mobile: DataTypes.STRING,
+        isActive: { type: DataTypes.BOOLEAN, defaultValue: false }
+    }, { sequelize, modelName: 'user'});
 
-  module.exports = User;
+    User.hasMany(Location);
+
+    module.exports = User;
+
 })();

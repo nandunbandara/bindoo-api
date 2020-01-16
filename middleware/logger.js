@@ -1,11 +1,15 @@
 (() => {
-  "use strict";
 
-  const winston = require("winston");
+    'use strict';
 
-  const logger = winston.createLogger({
-    transports: [new winston.transports.Console()]
-  });
+    const winston = require('winston');
 
-  module.exports = logger;
+    const logger = winston.createLogger({
+        transports: [
+            new winston.transports.Console()
+        ]
+    });
+
+    module.exports = logger;
+
 })();

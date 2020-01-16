@@ -1,23 +1,27 @@
 (() => {
-  "use strict";
 
-  const HTTP_STATUS = require("http-status");
-  const schema = require("./schema/user.schema");
+    'use strict';
 
-  const userSignUpValidator = (req, res, next) => {
-    const { error } = schema.validate(req.body);
+    const HTTP_STATUS = require('http-status');
+    const schema = require('./schema/user.schema');
 
-    if (error) {
-      return res.status(HTTP_STATUS.BAD_REQUEST).json({
-        success: false,
-        error: error.message
-      });
-    }
+    const userSignUpValidator = (req, res, next) => {
 
-    next();
-  };
+        const { error } = schema.validate(req.body);
 
-  module.exports = {
-    userSignUpValidator
-  };
+        if (error) {
+            return res.status(HTTP_STATUS.BAD_REQUEST).json({ 
+                success: false, 
+                error: error.message 
+            });
+        }
+
+        next();
+
+    };
+
+    module.exports = {
+        userSignUpValidator
+    };
+
 })();

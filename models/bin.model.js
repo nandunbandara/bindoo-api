@@ -1,26 +1,19 @@
 (() => {
-  "use strict";
 
-  const { Model, DataTypes } = require("sequelize");
-  const sequelize = require("../middleware/database").getConnection();
+    'use strict';
 
-  const Location = require("./location.model");
+    const { Model, DataTypes } = require('sequelize');
+    const sequelize = require('../middleware/database').getConnection();
 
-  class Bin extends Model {}
+    class Bin extends Model {}
 
-  Bin.init(
-    {
-      name: DataTypes.STRING, // name of the bin
-      description: DataTypes.TEXT,
-      type: DataTypes.INTEGER,
-      capacity: DataTypes.FLOAT
-    },
-    { sequelize, modelName: "bin" }
-  );
+    Bin.init({
+        name: DataTypes.STRING, // name of the bin
+        description: DataTypes.TEXT,
+        type: DataTypes.INTEGER,
+        capacity: DataTypes.FLOAT,                                                                                           
+    }, { sequelize, modelName: 'bin' });
 
-  Bin.associate = models => {
-    Bin.belongsTo(models.bin, { foreignKey: "id" });
-  };
+    module.exports = Bin;
 
-  module.exports = Bin;
 })();

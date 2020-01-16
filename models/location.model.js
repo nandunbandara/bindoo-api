@@ -1,30 +1,25 @@
 (() => {
-  "use strict";
 
-  const { Model, DataTypes } = require("sequelize");
-  const sequelize = require("../middleware/database").getConnection();
+    'use strict';
 
-  const Bin = require("./bin.model");
+    const { Model, DataTypes} = require('sequelize');
+    const sequelize = require('../middleware/database').getConnection();
 
-  class Location extends Model {}
+    const Bin = require('./bin.model');
 
-  Location.init(
-    {
-      name: DataTypes.STRING,
-      description: DataTypes.STRING,
-      type: DataTypes.INTEGER,
-      address: DataTypes.STRING,
-      longitude: DataTypes.DOUBLE,
-      latitude: DataTypes.DOUBLE
-    },
-    { sequelize, modelName: "location" }
-  );
+    class Location extends Model {}
 
-  Location.hasMany(Bin);
+    Location.init({
+        name: DataTypes.STRING,
+        description: DataTypes.STRING,
+        type: DataTypes.INTEGER,
+        address: DataTypes.STRING,
+        longitude: DataTypes.DOUBLE,
+        latitude: DataTypes.DOUBLE
+    }, { sequelize, modelName: 'location'});
 
-  Location.associate = models => {
-    Location.belongsTo(models.user, { foreignKey: "uid" });
-  };
+    Location.hasMany(Bin);
 
-  module.exports = Location;
+    module.exports = Location;
+
 })();

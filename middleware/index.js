@@ -1,32 +1,36 @@
 (() => {
-  "use strict";
 
-  const bodyParser = require("body-parser");
+    'use strict';
 
-  const User = require("../models/user.model");
-  const Bin = require("../models/bin.model");
-  const Location = require("../models/location.model");
-  const Council = require("../models/council.model");
+    const bodyParser = require('body-parser');
 
-  const Routes = require("../routes");
-  const Firebase = require("./firebase");
+    const User = require('../models/user.model');
+    const Bin = require('../models/bin.model');
+    const Location = require('../models/location.model');
+    const Council = require('../models/council.model');
 
-  const init = async app => {
-    app.use(bodyParser.json());
+    const Routes = require('../routes');
+    const Firebase = require('./firebase');
 
-    // initialize firebase admin
-    Firebase();
+    const init = app => {
 
-    // create tables
-    await User.sync({});
-    await Location.sync({});
-    await Bin.sync({});
+        app.use(bodyParser.json());
 
-    await Council.sync({});
+        // initialize firebase admin
+        Firebase();
 
-    // init routes
-    Routes(app);
-  };
+        // create tables
+        User.sync({ force: true, match: /_test$/ });
+        Location.sync({ force: true, match: /_test$/ });
+        Bin.sync({ force: true, match: /_test$/ });
+        
+    
+        Council.sync({ force: true, match: /_test$/ });
 
-  module.exports = init;
+        // init routes
+        Routes(app);
+
+    };
+
+    module.exports = init;
 })();
