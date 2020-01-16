@@ -6,6 +6,8 @@
 
     const createNewBin = (req, res) => {
 
+        
+
     };
 
     module.exports = {

@@ -1,23 +1,37 @@
 (() => {
+  /**
+   * Handle CRUD for users
+   */
 
-    /**
-     * Handle CRUD for users
-     */
+  const User = require("../../models/user.model");
 
-     const User = require('../../models/user.model');
+  const createNewUserRecord = (
+    uid,
+    firstName,
+    lastName,
+    userType,
+    nic,
+    email,
+    mobile
+  ) => {
+    return User.create({
+      uid,
+      firstName,
+      lastName,
+      userType,
+      nic,
+      email,
+      mobile
+    });
+  };
 
-     const createNewUserRecord = (uid, firstName, lastName, userType, nic, email, mobile) => {
-        return User.create({ uid, firstName, lastName, userType, nic, email, mobile });
-     };
+  const getUserByUid = uid => User.findOne({ where: { uid } });
 
-     const getUserByUid = uid => User.findOne({ where: { uid }});
+  const deleteUserRecord = uid => User.destroy({ where: { uid } });
 
-     const deleteUserRecord = uid => User.destroy({ where: { uid }});
-
-     module.exports = {
-         createNewUserRecord,
-         getUserByUid,
-         deleteUserRecord
-     };
-
+  module.exports = {
+    createNewUserRecord,
+    getUserByUid,
+    deleteUserRecord
+  };
 })();
