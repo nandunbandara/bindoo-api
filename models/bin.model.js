@@ -14,6 +14,10 @@
         capacity: DataTypes.FLOAT,                                                                                           
     }, { sequelize, modelName: 'bin' });
 
+    Bin.associate = models => {
+        Bin.belongsTo(models.location, { foreignKey: 'id' });
+    };
+
     module.exports = Bin;
 
 })();
