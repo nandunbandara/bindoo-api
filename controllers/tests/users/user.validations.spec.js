@@ -47,6 +47,39 @@
 
         });
 
+        it('should return an error: userType undefined', done => {
+
+            chai.request(server).post('/users').send({
+                firstName: faker.name.firstName(),
+                lastName: faker.name.lastName(),
+                nic: '961264022V',
+                email: faker.internet.email(),
+                mobile: '0772506467',
+                password: faker.internet.password()
+            }).end((err, res) => {
+                res.should.have.status(HTTP_STATUS.BAD_REQUEST);
+                done();
+            });
+
+        });
+
+
+        it('should return an error: nic undefined', done => {
+
+            chai.request(server).post('/users').send({
+                firstName: faker.name.firstName(),
+                lastName: faker.name.lastName(),
+                userType: 1,
+                email: faker.internet.email(),
+                mobile: '0772506467',
+                password: faker.internet.password()
+            }).end((err, res) => {
+                res.should.have.status(HTTP_STATUS.BAD_REQUEST);
+                done();
+            });
+
+        });
+
     });
 
 

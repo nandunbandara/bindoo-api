@@ -8,7 +8,7 @@
     const init = () => {
         
         admin.initializeApp({
-            credential: admin.credential.cert(serviceAccount)
+            credential: admin.credential.cert(serviceAccount || process.env.SERVICE_ACCOUNT)
         });
 
     };

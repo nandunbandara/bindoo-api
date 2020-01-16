@@ -4,8 +4,10 @@
   "description": "Waste Management System",
   "main": "index.js",
   "scripts": {
-    "test": "bash ./scripts/test.dev.sh",
-    "start": "bash ./scripts/run.dev.sh"
+    "dev-test": "bash ./scripts/test.dev.sh",
+    "test": "./node_modules/mocha/bin/mocha --exit ./**/*.spec.js --timeout 8000",
+    "dev": "bash ./scripts/run.dev.sh",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
