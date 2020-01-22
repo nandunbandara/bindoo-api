@@ -12,7 +12,7 @@
     const Routes = require('../routes');
     const Firebase = require('./firebase');
 
-    const init = app => {
+    const init = async app => {
 
         app.use(bodyParser.json());
 
@@ -20,12 +20,12 @@
         Firebase();
 
         // create tables
-        User.sync({});
-        Location.sync({});
-        Bin.sync({});
+        await User.sync({});
+        await Location.sync({});
+        await Bin.sync({});
         
     
-        Council.sync({});
+        await Council.sync({});
 
         // init routes
         Routes(app);

@@ -21,7 +21,7 @@
     Location.hasMany(Bin);
 
     Location.associate = models => {
-        Location.belongsTo(models.user, { foreignKey: 'uid' });
+        Location.belongsTo(models.user, { foreignKey: 'uid', as: 'user' });
     };
 
     module.exports = Location;

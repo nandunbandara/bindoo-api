@@ -9,6 +9,7 @@
 
     Council.init({
         name: DataTypes.STRING,
+        description: DataTypes.STRING,
         province: DataTypes.INTEGER,
         district: DataTypes.INTEGER,
     }, { sequelize, modelName: 'council' });
