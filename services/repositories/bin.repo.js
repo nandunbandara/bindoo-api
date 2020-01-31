@@ -10,12 +10,17 @@
         });
     };
 
+    const getBinsByLocation = id => {
+        return Bin.findAll({ where: { locationId: id } });
+    };
+
     const deleteBin = id => {
         return Bin.destroy({ where: { id } });
     };
 
     module.exports = {
         createNewBinForLocation,
+        getBinsByLocation,
         deleteBin
     };
 
