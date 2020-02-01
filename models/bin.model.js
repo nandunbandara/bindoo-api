@@ -11,7 +11,8 @@
         name: DataTypes.STRING, // name of the bin
         description: DataTypes.TEXT,
         type: DataTypes.INTEGER,
-        capacity: DataTypes.FLOAT,                                                                                           
+        capacity: DataTypes.FLOAT,
+        readyForCollection: { type: DataTypes.BOOLEAN, defaultValue: false }
     }, { sequelize, modelName: 'bin' });
 
     Bin.associate = models => {

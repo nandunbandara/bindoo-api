@@ -10,6 +10,13 @@
         });
     };
 
+    const updateBin = (id, name, description, type, capacity) => {
+        return Bin.update(
+            { name, description, type, capacity },
+            { where: { id }}
+        );
+    };
+
     const getBinsByLocation = id => {
         return Bin.findAll({ where: { locationId: id } });
     };
@@ -20,6 +27,7 @@
 
     module.exports = {
         createNewBinForLocation,
+        updateBin,
         getBinsByLocation,
         deleteBin
     };

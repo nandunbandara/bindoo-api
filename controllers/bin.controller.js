@@ -28,6 +28,30 @@
 
     };
 
+    const updateBin = async (req, res) => {
+
+        try {
+
+            const result = await BinRepository.updateBin(
+                req.params.id,
+                req.body.name,
+                req.body.description,
+                req.body.type,
+                req.body.capacity
+            );
+
+            return res.status(HTTP_STATUS.OK).json({
+                success: true, data: result
+            });
+
+        } catch (err) {
+            return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+
+    }
+
     const getBinsByLocation = async (req, res) => {
 
         try {
@@ -68,6 +92,7 @@
 
     module.exports = {
         createNewBin,
+        updateBin,
         getBinsByLocation,
         deleteBin
     };
