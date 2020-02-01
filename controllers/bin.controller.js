@@ -28,6 +28,24 @@
 
     };
 
+    const getBinById = async (req, res) => {
+        
+        try {
+
+            const result = await BinRepository.getBinById(req.params.id);
+
+            return res.status(HTTP_STATUS.OK).json({
+                success: true, data: result
+            });
+
+        } catch (err) {
+            return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+
+    };
+
     const updateBin = async (req, res) => {
 
         try {
@@ -50,7 +68,7 @@
             });
         }
 
-    }
+    };
 
     const getBinsByLocation = async (req, res) => {
 
@@ -90,11 +108,38 @@
         }
     };
 
+    const changeBinReadyForCollectionStatus = async (req, res) => {
+        
+        try {
+
+            const bin = await BinRepository.getBinById(req.params.id);
+            if (!bin) { throw new Error('bin not found for provided id'); }
+
+            if (bin.readyForCollection) {
+                throw new Error('bin is already is ready for collection state');
+            } else {
+                const result = await BinRepository
+                                        .updateReadyForCollectionStatus(req.params.id, true);
+                return res.status(HTTP_STATUS.OK).json({
+                    success: true, data: result
+                });
+            }
+
+        } catch (err) {
+            return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+
+    };
+
     module.exports = {
         createNewBin,
+        getBinById,
         updateBin,
         getBinsByLocation,
-        deleteBin
+        deleteBin,
+        changeBinReadyForCollectionStatus
     };
 
 })();

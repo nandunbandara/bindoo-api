@@ -17,19 +17,23 @@
         );
     };
 
-    const getBinsByLocation = id => {
-        return Bin.findAll({ where: { locationId: id } });
-    };
+    const getBinsByLocation = id => Bin.findAll({ where: { locationId: id } });
 
-    const deleteBin = id => {
-        return Bin.destroy({ where: { id } });
+    const getBinById = id => Bin.findOne({ where: { id } });
+
+    const deleteBin = id =>  Bin.destroy({ where: { id } });
+
+    const updateReadyForCollectionStatus = (id, status) => {
+        return Bin.update({ readyForCollection: status }, { where: { id } });
     };
 
     module.exports = {
         createNewBinForLocation,
         updateBin,
         getBinsByLocation,
-        deleteBin
+        getBinById,
+        deleteBin,
+        updateReadyForCollectionStatus
     };
 
 })();
