@@ -30,6 +30,32 @@
         }
     };
 
+    const getLocationsByUser = async (req, res) => {
+
+        try {
+
+            logger.info(`[SVC] services.controllers.location.getLocationsByUser`);
+            const result = await LocationRepository.createLocation(
+                req.body.name, req.body.description, req.body.type,
+                req.body.address, req.body.longitude, req.body.latitude, req.params.uid
+            );
+
+            return res.status(HTTP_STATUS.CREATED).json({
+                success: true, data: result
+            });
+
+        } catch (err) {
+
+            logger.error(`[ERROR] services.controllers.location.getLocationsByUser : ${err.message}`);
+            return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+
+        }
+        
+
+    };
+
     module.exports = {
         createLocationForUser
     };
