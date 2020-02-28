@@ -46,6 +46,24 @@
 
     };
 
+    const getBinByStatus = async (req, res) => {
+
+        try {
+
+            const result = await BinRepository.getBinsByStatus(req.params.status);
+
+            return res.status(HTTP_STATUS.OK).json({
+                success: true, data: result
+            });
+        
+        } catch (err) {
+            return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+
+    }
+
     const updateBin = async (req, res) => {
 
         try {
@@ -136,6 +154,7 @@
     module.exports = {
         createNewBin,
         getBinById,
+        getBinByStatus,
         updateBin,
         getBinsByLocation,
         deleteBin,

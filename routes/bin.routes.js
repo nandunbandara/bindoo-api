@@ -10,6 +10,7 @@
       RequestLogWrapper(BinController.getBinsByLocation)
     );
     app.get('/bins/:id', BinController.getBinById);
+    app.get('/bins/readyForCollection/:status', BinController.getBinByStatus)
     app.post(
       "/locations/:id/bins",
       RequestLogWrapper(BinController.createNewBin)

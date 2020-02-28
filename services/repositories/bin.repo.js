@@ -21,6 +21,8 @@
 
     const getBinById = id => Bin.findOne({ where: { id } });
 
+    const getBinsByStatus = status => Bin.findAll({ where: { readyForCollection: status } });
+
     const deleteBin = id =>  Bin.destroy({ where: { id } });
 
     const updateReadyForCollectionStatus = (id, status) => {
@@ -32,6 +34,7 @@
         updateBin,
         getBinsByLocation,
         getBinById,
+        getBinsByStatus,
         deleteBin,
         updateReadyForCollectionStatus
     };
