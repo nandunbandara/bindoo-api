@@ -3,6 +3,7 @@
     'use strict';
 
     const bodyParser = require('body-parser');
+    const cors = require('cors');
 
     const User = require('../models/user.model');
     const Bin = require('../models/bin.model');
@@ -15,17 +16,18 @@
     const init = async app => {
 
         app.use(bodyParser.json());
+        app.use(cors());
 
         // initialize firebase admin
         Firebase();
 
         // create tables
         await User.sync({});
+        await Council.sync({});
         await Location.sync({});
         await Bin.sync({});
         
     
-        await Council.sync({});
 
         // init routes
         Routes(app);

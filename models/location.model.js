@@ -15,7 +15,8 @@
         type: DataTypes.INTEGER,
         address: DataTypes.STRING,
         longitude: DataTypes.DOUBLE,
-        latitude: DataTypes.DOUBLE
+        latitude: DataTypes.DOUBLE,
+        verified: { type: DataTypes.BOOLEAN, defaultValue: false }
     }, { sequelize, modelName: 'location'});
 
     Location.hasMany(Bin);
