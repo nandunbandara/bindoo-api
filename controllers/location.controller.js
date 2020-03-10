@@ -63,6 +63,30 @@
 
     };
 
+    const updateLocation = async (req, res) => {
+
+        try {
+
+            logger.info('update location init');
+            const result = await LocationRepository.updateLocation(
+                req.params.id,
+                req.body.name, req.body.description, req.body.type,
+                req.body.address, req.body.longitude, req.body.latitude
+            );
+
+            return res.status(HTTP_STATUS.OK).json({
+                success: true, data: result
+            });
+
+        } catch (err) {
+            logger.error(`[ERROR] services.controllers.location.updateLocation : ${err.message}`);
+            return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+
+    };
+
     /**
      * 
      * @param {*} req 
@@ -94,7 +118,8 @@
     module.exports = {
         createLocationForUser,
         getLocationsByUser,
-        verifyLocation
+        verifyLocation,
+        updateLocation
     };
 
 })();

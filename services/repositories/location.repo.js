@@ -17,10 +17,16 @@
 
     const verifyLocation = async id => Location.update({ verified: true }, { where: { id } });
 
+    const updateLocation = async (id, name, description, type, address, longitude, latitude) =>
+        Location.update({
+            name, description, type, address, longitude, latitude
+        }, { where: { id }});
+
     module.exports = {
         createLocation,
         getLocationsByUserId,
-        verifyLocation
+        verifyLocation,
+        updateLocation
     };
 
 })();

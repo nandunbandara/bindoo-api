@@ -11,7 +11,8 @@
         app.post('/users/:uid/locations', RequestLogWrapper(LocationController.createLocationForUser));
         app.get('/users/:uid/locations', RequestLogWrapper(LocationController.getLocationsByUser));
         app.put('/locations/:id/verified', RequestLogWrapper(LocationController.verifyLocation));
-
+        app.put('/locations/:id', RequestLogWrapper(LocationController.updateLocation));
+        
     };
 
     module.exports = { init };
