@@ -1,3 +1,5 @@
+const Token = require('../models/token.model');
+
 (() => {
 
     'use strict';
@@ -26,6 +28,7 @@
         await Council.sync({});
         await Location.sync({});
         await Bin.sync({});
+        await Token.sync({});
         
     
 

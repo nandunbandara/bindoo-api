@@ -14,9 +14,12 @@
 
     const deleteUser = uid => admin.auth().deleteUser(uid);
 
+    const verifyToken = token => admin.auth().verifyIdToken(token);
+
     module.exports = {
         createNewUser,
-        deleteUser
+        deleteUser,
+        verifyToken,
     };
 
 })();
