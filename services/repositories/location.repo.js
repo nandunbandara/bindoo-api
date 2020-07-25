@@ -15,6 +15,10 @@
 
     const getLocationsByUserId = async uid => Location.findAll({ where: { userUid: uid } });
 
+    const getLocations = () => Location.findAll();
+
+    const getLocationsByCouncil = id =>  Location.findAll({ where: { councilId: id }});
+
     const verifyLocation = async id => Location.update({ verified: true }, { where: { id } });
 
     const updateLocation = async (id, name, description, type, address, longitude, latitude) =>
@@ -26,7 +30,9 @@
         createLocation,
         getLocationsByUserId,
         verifyLocation,
-        updateLocation
+        updateLocation,
+        getLocationsByCouncil,
+        getLocations,
     };
 
 })();

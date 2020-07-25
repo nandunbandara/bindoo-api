@@ -18,7 +18,9 @@
         stripeToken: { type: DataTypes.STRING }
     }, { sequelize, modelName: 'user'});
 
-    User.hasMany(Location);
+    User.hasMany(Location, {
+        onDelete: 'CASCADE'
+    });
 
     module.exports = User;
 

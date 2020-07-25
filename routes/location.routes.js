@@ -10,6 +10,8 @@
 
         app.post('/users/:uid/locations', RequestLogWrapper(LocationController.createLocationForUser));
         app.get('/users/:uid/locations', RequestLogWrapper(LocationController.getLocationsByUser));
+        app.get('/locations', RequestLogWrapper(LocationController.getAllLocations));
+        app.get('/councils/:id/locations', RequestLogWrapper(LocationController.getLocationsByCouncil));
         app.put('/locations/:id/verified', RequestLogWrapper(LocationController.verifyLocation));
         app.put('/locations/:id', RequestLogWrapper(LocationController.updateLocation));
         

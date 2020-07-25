@@ -18,7 +18,7 @@
             logger.info(`[SVC] services.controllers.location.createLocationForUser`);
             const result = await LocationRepository.createLocation(
                 req.body.name, req.body.description, req.body.type,
-                req.body.address, req.body.longitude, req.body.latitude, req.params.uid
+                req.body.address, req.body.longitude, req.body.latitude, req.params.uid, req.params.councilId
             );
 
             return res.status(HTTP_STATUS.CREATED).json({
@@ -62,6 +62,34 @@
         
 
     };
+
+    const getAllLocations = async (req, res) => {
+        try {
+            const result = await LocationRepository.getLocations();
+            return res.status(HTTP_STATUS.OK).json({
+                success: true, data: result
+            });
+        } catch (err) {
+            return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+    }
+
+    const getLocationsByCouncil = async (req, res) => {
+        try {
+
+            const result = await LocationRepository.getLocationsByCouncil(req.params.id);
+            return res.status(HTTP_STATUS.OK).json({
+                success: true, data: result
+            });
+
+        } catch (err) {
+            return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+    }
 
     const updateLocation = async (req, res) => {
 
@@ -119,7 +147,9 @@
         createLocationForUser,
         getLocationsByUser,
         verifyLocation,
-        updateLocation
+        updateLocation,
+        getAllLocations,
+        getLocationsByCouncil,
     };
 
 })();

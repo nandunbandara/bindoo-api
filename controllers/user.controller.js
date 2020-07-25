@@ -7,6 +7,7 @@
     const logger = require('../middleware/logger');
     const firebaseAdmin = require('../services/firebase-admin');
     const UserRepository = require('../services/repositories/user.repo');
+    const { USER_TYPES } = require('../services/constants.service');
 
     const createNewUser = async (req, res) => {
 
@@ -20,6 +21,16 @@
             );
 
             logger.info(`[SVC] services.controllers.users.createNewUser: firebase uid ${firebaseResult.uid}`);
+
+            const customClaims = {
+                userType: req.body.userType
+            };
+
+            if (req.body.userType === USER_TYPES.COUNCIL_MEMBER) {
+                customClaims.councilId = req.body.councilId
+            };
+
+            await firebaseAdmin.updateCustomClaims(firebaseResult.uid, customClaims)
 
             const result = await UserRepository.createNewUserRecord(
                 firebaseResult.uid, // uid of user created on firebase

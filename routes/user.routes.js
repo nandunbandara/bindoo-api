@@ -16,7 +16,7 @@
 
         // email verification
         app.post('/users/:uid/email', RequestLogWrapper(EmailController.sendVerificationEmailToUser));
-        // app.put() verify email
+        app.put('/users/:uid/email', RequestLogWrapper(EmailController.verifyEmail));
 
 
     };
