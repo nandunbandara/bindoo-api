@@ -27,6 +27,7 @@
     "firebase-admin": "^8.9.0",
     "http-status": "^1.4.2",
     "mysql2": "^2.1.0",
+    "node-mailjet": "^3.3.1",
     "sequelize": "^5.21.3",
     "winston": "^3.2.1"
   },
