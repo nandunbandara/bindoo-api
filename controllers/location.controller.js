@@ -13,12 +13,17 @@
      */
     const createLocationForUser = async (req, res) => {
 
+        const { name, description, type, tax_id,
+            building_number, line_1, line_2, city,
+            uid, councilId} = req.body;
+
         try {
 
             logger.info(`[SVC] services.controllers.location.createLocationForUser`);
             const result = await LocationRepository.createLocation(
-                req.body.name, req.body.description, req.body.type,
-                req.body.address, req.body.longitude, req.body.latitude, req.params.uid, req.params.councilId
+                name, description, type, tax_id,
+                building_number, line_1, line_2, city,
+                uid, councilId
             );
 
             return res.status(HTTP_STATUS.CREATED).json({

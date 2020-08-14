@@ -5,11 +5,12 @@
     const Location = require('../../models/location.model');
     const UserRespository = require('./user.repo');
 
-    const createLocation = async (name, description, type, address, longitude, latitude, uid, councilId) => {
+    const createLocation = async (name, description, type, tax_id, building_number, line_1, line_2, city, uid, councilId) => {
         // const user = await UserRespository.getUserByUid(uid);
         return Location.create({
-            name, description, type, address,
-            longitude, latitude, userUid: uid, councilId
+            name, description, type, tax_id,
+            building_number, line_1, line_2, city,
+            userUid: uid, councilId
         });
     };
 

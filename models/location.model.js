@@ -13,7 +13,11 @@
         name: DataTypes.STRING,
         description: DataTypes.STRING,
         type: DataTypes.INTEGER,
-        address: DataTypes.STRING,
+        tax_id: DataTypes.INTEGER,
+        building_number: DataTypes.STRING,
+        line_1: DataTypes.STRING,
+        line_2: DataTypes.STRING,
+        city: DataTypes.STRING,
         verified: { type: DataTypes.BOOLEAN, defaultValue: false }
     }, { sequelize, modelName: 'location'});
 
