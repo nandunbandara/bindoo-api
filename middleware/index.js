@@ -12,6 +12,9 @@ const Token = require('../models/token.model');
     const Location = require('../models/location.model');
     const Council = require('../models/council.model');
     const Item  = require('../models/item.model');
+    const Vehicle = require('../models/vehicle.model');
+    // const Order = require('../models/order.model');
+    const Organization = require('../models/organization.model');
 
     const Routes = require('../routes');
     const Firebase = require('./firebase');
@@ -31,8 +34,9 @@ const Token = require('../models/token.model');
         await Bin.sync({});
         await Token.sync({});
         await Item.sync({});
-        
-    
+        await Vehicle.sync({});
+        // await Order.sync({});
+        await Organization.sync({});
 
         // init routes
         Routes(app);

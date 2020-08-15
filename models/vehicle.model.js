@@ -9,10 +9,10 @@
     class Vehicle extends Model {}
 
     Vehicle.init({
-        uid: { type: DataTypes.STRING, primaryKey: true, unique: true },
-        name: DataTypes.STRING,
-        description: DataTypes.STRING,
-        email: DataTypes.STRING,
+        registration_number: DataTypes.STRING,
+        model: DataTypes.STRING,
+        make: DataTypes.STRING,
+        capacity: DataTypes.FLOAT
     }, { sequelize, modelName: 'vehicle' });
 
     Vehicle.hasOne(Council);

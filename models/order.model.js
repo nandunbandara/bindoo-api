@@ -1,21 +1,21 @@
 (() => {
 
-    'use strict';
+    // 'use strict';
 
-    const { Model, DataTypes } = require('sequelize');
-    const Item = require('./item.model');
-    const sequelize = require('../middleware/database').getConnection();
+    // const { Model, DataTypes } = require('sequelize');
+    // const Item = require('./item.model');
+    // const sequelize = require('../middleware/database').getConnection();
 
-    class Order extends Model {}
+    // class Order extends Model {}
 
-    Order.init({
-        total: DataTypes.NUMBER,
-        shippingAddress: DataTypes.STRING,
-        status: DataTypes.BOOLEAN,
-    }, { sequelize, modelName: 'order' });
+    // Order.init({
+    //     total: DataTypes.NUMBER,
+    //     shippingAddress: DataTypes.STRING,
+    //     status: DataTypes.BOOLEAN,
+    // }, { sequelize, modelName: 'order' });
 
-    Order.hasMany(Item);
+    // Order.hasMany(Item);
 
-    module.exports = Order;
+    // module.exports = Order;
 
 })();
