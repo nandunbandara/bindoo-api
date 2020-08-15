@@ -1,4 +1,5 @@
 const councilRoutes = require('./council.routes');
+const organizationRoutes = require('./organization.routes');
 
 (() => {
 
@@ -13,6 +14,7 @@ const councilRoutes = require('./council.routes');
         LocationRoutes.init(app);
         BinRoutes.init(app);
         councilRoutes.init(app);
+        organizationRoutes.init(app);
     };
 
     module.exports = init;

@@ -60,6 +60,7 @@ const updateCouncil = async (req, res) => {
 
 const deleteCouncil = async (req, res) => {
     try {
+        await firebaseAdmin.deleteUser(req.params.uid);
         const result = await councilRepo.deleteCouncil(req.params.uid);
 
         return res.status(httpStatus.OK).json({
