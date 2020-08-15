@@ -75,9 +75,25 @@ const getAllOrganizations = async (req, res) => {
     }
 }
 
+
+const getOrganizationCount = async (req, res) => {
+    try {
+        const count = await organizationRepository.getOrganizationsCount();
+
+        return res.status(httpStatus.OK).json({
+            success: true, data: count
+        });
+    } catch (err) {
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+            success: false, error: err.message
+        })
+    }
+}
+
 module.exports = {
     createOrganization,
     updateOrganization,
     deleteOrganization,
     getAllOrganizations,
+    getOrganizationCount
 }

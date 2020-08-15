@@ -1,3 +1,5 @@
+const Location = require('../../models/location.model');
+
 (() => {
 
     'use strict';
@@ -21,7 +23,7 @@
 
     const getBinById = id => Bin.findOne({ where: { id } });
 
-    const getBinsByStatus = status => Bin.findAll({ where: { readyForCollection: status } });
+    const getBinsByStatus = status => Bin.findAll({ where: { readyForCollection: status }, include: [ { model: Location, as: 'location' } ] });
 
     const deleteBin = id =>  Bin.destroy({ where: { id } });
 

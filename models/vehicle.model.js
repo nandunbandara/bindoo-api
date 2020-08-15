@@ -3,7 +3,6 @@
     'use strict';
 
     const { Model, DataTypes } = require('sequelize');
-    const Council = require('./council.model');
     const sequelize = require('../middleware/database').getConnection();
 
     class Vehicle extends Model {}
@@ -14,7 +13,11 @@
         make: DataTypes.STRING,
         capacity: DataTypes.FLOAT
     }, { sequelize, modelName: 'vehicle' });
-    
+
+    Vehicle.associate = models => {
+        Vehicle.belongsTo(models.council, { foreignKey: 'id'});
+    }
+
     module.exports = Vehicle;
 
 })();

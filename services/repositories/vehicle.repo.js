@@ -1,7 +1,8 @@
 const Vehicle = require("../../models/vehicle.model");
+const Council = require("../../models/council.model");
 
-const createVehicle = (registration_number, model, make, capacity, councilId) => 
-    Vehicle.create({registration_number, model, make, capacity, councilId});
+const createVehicle = (registration_number, model, make, capacity, councilUid) => 
+    Vehicle.create({registration_number, model, make, capacity, councilUid});
 
 const updateVehicle = (id, registration_number, model, make, capacity) => 
     Vehicle.update(
@@ -11,14 +12,20 @@ const updateVehicle = (id, registration_number, model, make, capacity) =>
 
 const deleteVehicle = id => Vehicle.destroy({ where: {id}});
 
-const getVehiclesByCouncil = councilId => Vehicle.findAll({ where: { councilId }});
+const getVehiclesByCouncil = councilUid => Vehicle.findAll({ where: { councilUid }});
 
 const getAllVehicles = () => Vehicle.findAll();
+
+const getVehiclesCountByCouncil = councilUid => Vehicle.count({ councilUid });
+
+const getVehiclesCount = () => Vehicle.count();
 
 module.exports = {
     createVehicle,
     updateVehicle,
     deleteVehicle,
     getVehiclesByCouncil,
-    getAllVehicles
+    getAllVehicles,
+    getVehiclesCountByCouncil,
+    getVehiclesCount
 }

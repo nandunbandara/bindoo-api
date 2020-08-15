@@ -11,9 +11,12 @@ const deleteOrganization = uid => Organization.destroy({ where: {uid}});
 
 const getOrganizations = () => Organization.findAll();
 
+const getOrganizationsCount = () =>  Organization.count();
+
 module.exports = {
     createOrganization,
     updateOrganization,
     deleteOrganization,
-    getOrganizations
+    getOrganizations,
+    getOrganizationsCount,
 }

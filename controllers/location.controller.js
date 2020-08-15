@@ -1,3 +1,5 @@
+const httpStatus = require('http-status');
+
 (() => {
 
     'use strict';
@@ -15,7 +17,7 @@
 
         const { name, description, type, tax_id,
             building_number, line_1, line_2, city,
-            uid, councilId} = req.body;
+            councilUid} = req.body;
 
         try {
 
@@ -23,7 +25,7 @@
             const result = await LocationRepository.createLocation(
                 name, description, type, tax_id,
                 building_number, line_1, line_2, city,
-                uid, councilId
+                req.params.uid, councilUid
             );
 
             return res.status(HTTP_STATUS.CREATED).json({
@@ -98,13 +100,17 @@
 
     const updateLocation = async (req, res) => {
 
+        const { name, description, type, tax_id,
+            building_number, line_1, line_2, city,
+            uid, councilUid} = req.body;
+
         try {
 
             logger.info('update location init');
             const result = await LocationRepository.updateLocation(
-                req.params.id,
-                req.body.name, req.body.description, req.body.type,
-                req.body.address, req.body.longitude, req.body.latitude
+                req.params.id, name, description, type, tax_id,
+                building_number, line_1, line_2, city,
+                uid, councilUid
             );
 
             return res.status(HTTP_STATUS.OK).json({
@@ -148,6 +154,20 @@
 
     };
 
+    const deleteLocation = async (req, res) => {
+        try {
+            const result = await LocationRepository.deleteLocation(req.params.id);
+
+            return res.status(httpStatus.OK).json({
+                success: true, data: result
+            });
+        } catch (err) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+    }
+
     module.exports = {
         createLocationForUser,
         getLocationsByUser,
@@ -155,6 +175,7 @@
         updateLocation,
         getAllLocations,
         getLocationsByCouncil,
+        deleteLocation
     };
 
 })();

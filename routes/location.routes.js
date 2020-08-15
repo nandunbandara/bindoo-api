@@ -14,6 +14,7 @@
         app.get('/councils/:id/locations', RequestLogWrapper(LocationController.getLocationsByCouncil));
         app.put('/locations/:id/verified', RequestLogWrapper(LocationController.verifyLocation));
         app.put('/locations/:id', RequestLogWrapper(LocationController.updateLocation));
+        app.delete('/locations/:id', RequestLogWrapper(LocationController.deleteLocation));
         
     };
 

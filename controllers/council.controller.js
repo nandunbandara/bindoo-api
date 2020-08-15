@@ -73,9 +73,24 @@ const deleteCouncil = async (req, res) => {
     }
 }
 
+const getCouncilsCount = async (req, res) => {
+    try {
+        const data = await councilRepo.getCouncilsCount();
+
+        return res.status(httpStatus.OK).json({
+            success: true, data
+        });
+    } catch (err) {
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+            success: false, error: err.message
+        })
+    }
+}
+
 module.exports = {
     createCouncil,
     viewAllCouncils,
     updateCouncil,
-    deleteCouncil
+    deleteCouncil,
+    getCouncilsCount
 }

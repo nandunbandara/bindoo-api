@@ -17,11 +17,14 @@
 
     const getCouncils = () => Council.findAll();
 
+    const getCouncilsCount = () =>  Council.count();
+
     module.exports = {
         createCouncil,
         updateCouncil,
         deleteCouncil,
-        getCouncils
+        getCouncils,
+        getCouncilsCount
     };
 
 })();

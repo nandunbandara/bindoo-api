@@ -50,7 +50,7 @@
 
         try {
 
-            const result = await BinRepository.getBinsByStatus(req.params.status);
+            const result = await BinRepository.getBinsByStatus(req.params.status === 'true' ? true : false);
 
             return res.status(HTTP_STATUS.OK).json({
                 success: true, data: result
