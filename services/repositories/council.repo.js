@@ -5,7 +5,7 @@
     const Council = require('../../models/council.model');
 
     const createCouncil = (uid, name, description, email) =>
-        Council.create(uid, name, description, email);
+        Council.create({uid, name, description, email});
     
     const updateCouncil = (uid, name, description) =>
         Council.update(

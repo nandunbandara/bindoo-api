@@ -1,11 +1,11 @@
 const councilController = require("../controllers/council.controller");
-const councilRepo = require("../services/repositories/council.repo");
+const RequestLogWrapper = require("../util/loghandler");
 
 const init = app => {
-    app.get('/councils', councilController.viewAllCouncils);
-    app.post('/councils', councilRepo.createCouncil);
-    app.put('/councils/:uid', councilRepo.updateCouncil);
-    app.delete('/councils/:uid', councilRepo.deleteCouncil);
+    app.get('/councils', RequestLogWrapper(councilController.viewAllCouncils));
+    app.post('/councils', RequestLogWrapper(councilController.createCouncil));
+    app.put('/councils/:uid', RequestLogWrapper(councilController.updateCouncil));
+    app.delete('/councils/:uid', RequestLogWrapper(councilController.deleteCouncil));
 };
 
 module.exports = {init};

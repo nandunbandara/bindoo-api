@@ -14,9 +14,7 @@
         make: DataTypes.STRING,
         capacity: DataTypes.FLOAT
     }, { sequelize, modelName: 'vehicle' });
-
-    Vehicle.hasOne(Council);
-
+    
     module.exports = Vehicle;
 
 })();

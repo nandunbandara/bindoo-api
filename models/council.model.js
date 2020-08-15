@@ -1,3 +1,5 @@
+const Vehicle = require('./vehicle.model');
+
 (() => {
 
     'use strict';
@@ -16,6 +18,7 @@
     }, { sequelize, modelName: 'council' });
 
     Council.hasMany(Location);
+    Council.hasMany(Vehicle);
 
     module.exports = Council;
 
