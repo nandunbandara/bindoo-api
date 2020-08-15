@@ -11,6 +11,7 @@ const Token = require('../models/token.model');
     const Bin = require('../models/bin.model');
     const Location = require('../models/location.model');
     const Council = require('../models/council.model');
+    const Item  = require('../models/item.model');
 
     const Routes = require('../routes');
     const Firebase = require('./firebase');
@@ -29,6 +30,7 @@ const Token = require('../models/token.model');
         await Location.sync({});
         await Bin.sync({});
         await Token.sync({});
+        await Item.sync({});
         
     
 
