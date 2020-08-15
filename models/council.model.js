@@ -9,10 +9,10 @@
     class Council extends Model {}
 
     Council.init({
+        uid: { type: DataTypes.STRING, primaryKey: true, unique: true },
         name: DataTypes.STRING,
         description: DataTypes.STRING,
-        province: DataTypes.INTEGER,
-        district: DataTypes.INTEGER,
+        email: DataTypes.STRING,
     }, { sequelize, modelName: 'council' });
 
     Council.hasMany(Location);

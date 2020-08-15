@@ -1,3 +1,5 @@
+const councilRoutes = require('./council.routes');
+
 (() => {
 
     'use strict';
@@ -10,6 +12,7 @@
         UserRoutes.init(app);
         LocationRoutes.init(app);
         BinRoutes.init(app);
+        councilRoutes.init(app);
     };
 
     module.exports = init;

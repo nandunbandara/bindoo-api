@@ -4,16 +4,16 @@
 
     const Council = require('../../models/council.model');
 
-    const createCouncil = (name, description, province, district) =>
-        Council.create(name, description, province, district);
+    const createCouncil = (uid, name, description, email) =>
+        Council.create(uid, name, description, email);
     
-    const updateCouncil = (id, name, description, province, district) =>
+    const updateCouncil = (uid, name, description) =>
         Council.update(
-            { name, description, province, district },
-            { where: { id }}
+            { name, description },
+            { where: { uid }}
         );
 
-    const deleteCouncil = id => Council.destroy({ where: { id } });
+    const deleteCouncil = uid => Council.destroy({ where: { uid } });
 
     const getCouncils = () => Council.findAll();
 
