@@ -16,7 +16,7 @@
     }, { sequelize, modelName: 'bin' });
 
     Bin.associate = models => {
-        Bin.belongsTo(models.location, { foreignKey: 'id' });
+        Bin.belongsTo(models.location, { foreignKey: 'id', as: 'location' });
     };
 
     module.exports = Bin;

@@ -1,3 +1,6 @@
+const httpStatus = require('http-status');
+const binRepo = require('../services/repositories/bin.repo');
+
 (() => {
 
     'use strict';
@@ -151,6 +154,24 @@
 
     };
 
+    const getBinCountByUser = async (req, res) => {
+        try {
+            let result = await binRepo.getBinCountByUser(req.params.uid);
+
+            if (result.length && result.length > 0 && result[0].length > 0) {
+                result = result[0][0].count;
+            }
+
+            return res.status(httpStatus.OK).json({
+                success: true, data: result
+            });
+        } catch (err) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+    }
+
     module.exports = {
         createNewBin,
         getBinById,
@@ -158,7 +179,8 @@
         updateBin,
         getBinsByLocation,
         deleteBin,
-        changeBinReadyForCollectionStatus
+        changeBinReadyForCollectionStatus,
+        getBinCountByUser
     };
 
 })();

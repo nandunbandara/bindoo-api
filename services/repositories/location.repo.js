@@ -1,3 +1,5 @@
+const User = require('../../models/user.model');
+
 (() => {
 
     'use strict';
@@ -14,7 +16,7 @@
 
     const getLocationsByUserId = async uid => Location.findAll({ where: { userUid: uid } });
 
-    const getLocations = () => Location.findAll();
+    const getLocations = () => Location.findAll({ include: [{ model: User, as: 'user'}]});
 
     const getLocationsByCouncil = id =>  Location.findAll({ where: { councilUid: id }});
 

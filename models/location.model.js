@@ -1,11 +1,11 @@
+const Bin = require('./bin.model');
+
 (() => {
 
     'use strict';
 
     const { Model, DataTypes} = require('sequelize');
     const sequelize = require('../middleware/database').getConnection();
-
-    const Bin = require('./bin.model');
 
     class Location extends Model {}
 
@@ -21,12 +21,11 @@
         verified: { type: DataTypes.BOOLEAN, defaultValue: false }
     }, { sequelize, modelName: 'location'});
 
+    Location.hasMany(Bin);
+
     Location.associate = models => {
         Location.belongsTo(models.user, { foreignKey: 'uid', as: 'user' });
         Location.belongsTo(models.council, { foreignKey: 'id', as: 'council' });
-        Location.hasMany(Bin, {
-            onDelete: 'CASCADE',
-        });
     };
 
     module.exports = Location;

@@ -5,6 +5,7 @@
   const BinController = require("../controllers/bin.controller");
 
   const init = app => {
+    app.get('/users/:uid/bins/count', BinController.getBinCountByUser);
     app.get(
       "/locations/:id/bins",
       RequestLogWrapper(BinController.getBinsByLocation)

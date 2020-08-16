@@ -5,6 +5,7 @@ const Location = require('../../models/location.model');
     'use strict';
 
     const Bin = require('../../models/bin.model');
+    const sequelize = require('../../middleware/database').getConnection();
 
     const createNewBinForLocation = (name, description, type, capacity, locationId) => {
         return Bin.create({
@@ -31,6 +32,9 @@ const Location = require('../../models/location.model');
         return Bin.update({ readyForCollection: status }, { where: { id } });
     };
 
+    const getBinCountByUser = uid => sequelize.
+        query(`SELECT COUNT(b.id) as count FROM bins as b, locations as l WHERE b.locationId = l.id AND l.userUid = '${uid}'`);
+
     module.exports = {
         createNewBinForLocation,
         updateBin,
@@ -38,7 +42,8 @@ const Location = require('../../models/location.model');
         getBinById,
         getBinsByStatus,
         deleteBin,
-        updateReadyForCollectionStatus
+        updateReadyForCollectionStatus,
+        getBinCountByUser,
     };
 
 })();
