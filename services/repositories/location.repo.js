@@ -33,6 +33,10 @@
 
     const getLocationsCount = () => Location.count();
 
+    const getLocationCountByCouncil = councilUid => Location.count({ where: {councilUid}});
+
+    const getPVLocationsCount = () => Location.count({ where: {verified: false}});
+
     const getPVLocationsByCouncilCount = (councilUid) => Location.count({where: {verified: false, councilUid}});
 
     module.exports = {
@@ -44,7 +48,9 @@
         getLocations,
         deleteLocation,
         getLocationsCount,
-        getPVLocationsByCouncilCount
+        getLocationCountByCouncil,
+        getPVLocationsByCouncilCount,
+        getPVLocationsCount,
     };
 
 })();

@@ -168,6 +168,62 @@ const httpStatus = require('http-status');
         }
     }
 
+    const getLocationCount = async (req, res) => {
+        try {
+            const result = await LocationRepository.getLocationsCount();
+
+            return res.status(httpStatus.OK).json({
+                success: true, data: result
+            });
+        } catch (err) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+    }
+
+    const getLocationCountByCouncil = async (req, res) => {
+        try {
+            const result = await LocationRepository.getLocationCountByCouncil(req.params.id);
+
+            return res.status(httpStatus.OK).json({
+                success: true, data: result
+            });
+        } catch (err) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+    }
+
+    const getPVLocationCount = async (req, res) => {
+        try {
+            const result = await LocationRepository.getPVLocationsCount();
+
+            return res.status(httpStatus.OK).json({
+                success: true, data: result
+            });
+        } catch (err) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            })
+        }
+    }
+
+    const getPVLocationCountByCouncil = async (req, res) => {
+        try {
+            const result = await LocationRepository.getPVLocationsByCouncilCount(req.params.id);
+
+            return res.status(httpStatus.OK).json({
+                success: true, data: result
+            });
+        } catch (err) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+    }
+
     module.exports = {
         createLocationForUser,
         getLocationsByUser,
@@ -175,7 +231,11 @@ const httpStatus = require('http-status');
         updateLocation,
         getAllLocations,
         getLocationsByCouncil,
-        deleteLocation
+        deleteLocation,
+        getLocationCount,
+        getLocationCountByCouncil,
+        getPVLocationCount,
+        getPVLocationCountByCouncil
     };
 
 })();
