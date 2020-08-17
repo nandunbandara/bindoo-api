@@ -7,6 +7,7 @@
     const logger = require('../middleware/logger');
     const firebaseAdmin = require('../services/firebase-admin');
     const UserRepository = require('../services/repositories/user.repo');
+    const { USER_TYPES } = require('../services/constants.service');
 
     const createNewUser = async (req, res) => {
 
@@ -16,15 +17,25 @@
 
             const firebaseResult = await firebaseAdmin.createNewUser(
                 req.body.email, req.body.password, 
-                [req.body.firstName, req.body.lastName].join(' ') // display name
+                req.body.name // display name
             );
 
             logger.info(`[SVC] services.controllers.users.createNewUser: firebase uid ${firebaseResult.uid}`);
 
+            const customClaims = {
+                userType: req.body.userType
+            };
+
+            if (req.body.userType === USER_TYPES.COUNCIL_MEMBER) {
+                customClaims.councilId = req.body.councilId
+            };
+
+            await firebaseAdmin.updateCustomClaims(firebaseResult.uid, customClaims)
+
             const result = await UserRepository.createNewUserRecord(
                 firebaseResult.uid, // uid of user created on firebase
-                req.body.firstName, req.body.lastName, req.body.userType,
-                req.body.nic, req.body.email, req.body.mobile
+                req.body.name, req.body.userType,
+                req.body.email
             );
             
             logger.info(`[SVC] services.controllers.users.createNewUser: user db record created for ${result.uid}`);
@@ -45,11 +56,60 @@
 
     };
 
+    const getUserByUid = async (req, res) => {
+
+        try {
+
+            logger.info(`[SVC] services.controllers.users.createNewUser: retrieving user ${req.params.uid}`);
+
+            const result = await UserRepository.getUserByUid(req.params.uid);
+
+            return res.status(HTTP_STATUS.OK).json({
+                success: true, data: result
+            });
+
+        } catch (err) {
+
+            logger.error(`[ERROR] services.controllers.users.getUserByUid: ${err.message}`);
+
+            return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+
+        }
+
+    };
+
+    const updateStripeTokenForUser = async (req, res) => {
+
+        try {
+
+            logger.info(`[SVC] services.controllers.users.updateStripeTokenForUser`);
+
+            const result = await UserRepository.updateStripeToken(
+                req.params.uid,
+                req.body.stripeToken
+            );
+
+            return res.status(HTTP_STATUS.OK).json({
+                success: true, data: result
+            });
+
+        } catch (err) {
+            logger.error(`[ERROR] services.controllers.users.updateStripeTokenForUser: ${err.message}`);
+
+            return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+
+    };
+
     const deleteUser = async (req, res) => {
 
         try {
 
-            logger.info('[SVC] services.controllers.users.deleteUser: deleting user on database');
+            logger.info(`[SVC] services.controllers.users.deleteUser: deleting user on database: uid ${req.params.uid}`);
             await UserRepository.deleteUserRecord(req.params.uid);
 
             logger.info('[SVC] services.controllers.users.deleteUser: deleting user on firebase');
@@ -71,6 +131,8 @@
 
     module.exports = {
         createNewUser,
+        updateStripeTokenForUser,
+        getUserByUid,
         deleteUser,
     };
 

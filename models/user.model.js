@@ -11,16 +11,16 @@
 
     User.init({
         uid: { type: DataTypes.STRING, primaryKey: true, unique: true },
-        firstName: DataTypes.STRING,
-        lastName: DataTypes.STRING,
+        name: DataTypes.STRING,
         userType: DataTypes.INTEGER,
-        nic: { type: DataTypes.STRING, unique: true },
         email: { type: DataTypes.STRING, unique: true },
-        mobile: DataTypes.STRING,
-        isActive: { type: DataTypes.BOOLEAN, defaultValue: false }
+        isActive: { type: DataTypes.BOOLEAN, defaultValue: false },
+        stripeToken: { type: DataTypes.STRING }
     }, { sequelize, modelName: 'user'});
 
-    User.hasMany(Location);
+    User.hasMany(Location, {
+        onDelete: 'CASCADE'
+    });
 
     module.exports = User;
 

@@ -4,8 +4,10 @@
   "description": "Waste Management System",
   "main": "index.js",
   "scripts": {
-    "test": "bash ./scripts/test.dev.sh",
-    "start": "bash ./scripts/run.dev.sh"
+    "dev-test": "bash ./scripts/test.dev.sh",
+    "test": "./node_modules/mocha/bin/mocha --exit ./**/*.spec.js --timeout 8000",
+    "dev": "bash ./scripts/run.dev.sh",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,7 @@
     "firebase-admin": "^8.9.0",
     "http-status": "^1.4.2",
     "mysql2": "^2.1.0",
+    "node-mailjet": "^3.3.1",
     "sequelize": "^5.21.3",
     "winston": "^3.2.1"
   },

@@ -1,25 +1,19 @@
-const Vehicle = require('./vehicle.model');
-
 (() => {
 
     'use strict';
 
     const { Model, DataTypes } = require('sequelize');
-    const Location = require('./location.model');
     const sequelize = require('../middleware/database').getConnection();
 
-    class Council extends Model {}
+    class Organization extends Model {}
 
-    Council.init({
+    Organization.init({
         uid: { type: DataTypes.STRING, primaryKey: true, unique: true },
         name: DataTypes.STRING,
         description: DataTypes.STRING,
         email: DataTypes.STRING,
-    }, { sequelize, modelName: 'council' });
+    }, { sequelize, modelName: 'organization' });
 
-    Council.hasMany(Location);
-    Council.hasMany(Vehicle);
-
-    module.exports = Council;
+    module.exports = Organization;
 
 })();

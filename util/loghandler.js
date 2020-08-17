@@ -10,7 +10,7 @@
 
         try {
 
-            logger.info(`[ENDPOINT] service.endpoint ${req.url}`);
+            logger.info(`[ENDPOINT] service.endpoint | METHOD: ${req.method} | URL: ${req.url}`);
             requestHandler(req, res);
 
         } catch (err) {
