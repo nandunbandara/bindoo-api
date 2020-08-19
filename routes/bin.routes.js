@@ -6,6 +6,7 @@
 
   const init = app => {
     app.get('/users/:uid/bins/count', BinController.getBinCountByUser);
+    app.get('/users/:uid/bins', BinController.getBinsByUser);
     app.get(
       "/locations/:id/bins",
       RequestLogWrapper(BinController.getBinsByLocation)

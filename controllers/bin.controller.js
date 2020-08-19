@@ -172,6 +172,24 @@ const binRepo = require('../services/repositories/bin.repo');
         }
     }
 
+    const getBinsByUser = async (req, res) => {
+        try {
+            let result = await binRepo.getBinsByUser(req.params.uid);
+
+            if (result.length) {
+                result = result[0];
+            }
+
+            return res.status(httpStatus.OK).json({
+                success: true, data: result
+            });
+        } catch (err) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                success: false, erorr: err.message
+            });
+        }
+    }
+
     module.exports = {
         createNewBin,
         getBinById,
@@ -180,7 +198,8 @@ const binRepo = require('../services/repositories/bin.repo');
         getBinsByLocation,
         deleteBin,
         changeBinReadyForCollectionStatus,
-        getBinCountByUser
+        getBinCountByUser,
+        getBinsByUser,
     };
 
 })();

@@ -33,7 +33,17 @@ const Location = require('../../models/location.model');
     };
 
     const getBinCountByUser = uid => sequelize.
-        query(`SELECT COUNT(b.id) as count FROM bins as b, locations as l WHERE b.locationId = l.id AND l.userUid = '${uid}'`);
+        query(`SELECT COUNT(b.id) AS count FROM bins AS b, locations as l WHERE b.locationId = l.id AND l.userUid = '${uid}'`);
+    
+    const getBinsByUser = uid => sequelize.query(
+        `SELECT ` + 
+        `b.id as bin_id, b.name as bin_name, ` + 
+        `b.description as bin_description, ` +
+        `b.type, b.capacity, b.readyForCollection, b.createdAt, ` +
+        `b.updatedAt, l.id as location_id, l.name as location_name, ` +
+        `l.description as location_description ` + 
+        `FROM bins AS b, locations AS l WHERE b.locationId = l.id AND l.userUid = '${uid}'`
+    );
 
     module.exports = {
         createNewBinForLocation,
@@ -44,6 +54,7 @@ const Location = require('../../models/location.model');
         deleteBin,
         updateReadyForCollectionStatus,
         getBinCountByUser,
+        getBinsByUser
     };
 
 })();
