@@ -10,6 +10,7 @@
 
         app.get('/locations/count', RequestLogWrapper(LocationController.getLocationCount));
         app.get('/councils/:id/locations/count', RequestLogWrapper(LocationController.getLocationCountByCouncil));
+        app.get('/users/:uid/locations/count', RequestLogWrapper(LocationController.getLocationCountByUser));
 
         app.get('/locations/status/count', RequestLogWrapper(LocationController.getPVLocationCount));
         app.get('/councils/:id/locations/status/count', RequestLogWrapper(LocationController.getPVLocationCountByCouncil));

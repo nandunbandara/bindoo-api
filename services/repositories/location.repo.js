@@ -41,6 +41,8 @@ const User = require('../../models/user.model');
 
     const getPVLocationsByCouncilCount = (councilUid) => Location.count({where: {verified: false, councilUid}});
 
+    const getLocationCountByUser = uid => Location.count({ where: { userUid: uid }});
+
     module.exports = {
         createLocation,
         getLocationsByUserId,
@@ -53,6 +55,7 @@ const User = require('../../models/user.model');
         getLocationCountByCouncil,
         getPVLocationsByCouncilCount,
         getPVLocationsCount,
+        getLocationCountByUser,
     };
 
 })();

@@ -224,6 +224,20 @@ const httpStatus = require('http-status');
         }
     }
 
+    const getLocationCountByUser = async (req, res) => {
+        try {
+            const result = await LocationRepository.getLocationCountByUser(req.params.uid);
+
+            return res.status(httpStatus.OK).json({
+                success: true, data: result
+            });
+        } catch (err) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+    }
+
     module.exports = {
         createLocationForUser,
         getLocationsByUser,
@@ -235,7 +249,8 @@ const httpStatus = require('http-status');
         getLocationCount,
         getLocationCountByCouncil,
         getPVLocationCount,
-        getPVLocationCountByCouncil
+        getPVLocationCountByCouncil,
+        getLocationCountByUser
     };
 
 })();
