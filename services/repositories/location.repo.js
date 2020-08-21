@@ -16,6 +16,8 @@ const User = require('../../models/user.model');
 
     const getLocationsByUserId = async uid => Location.findAll({ where: { userUid: uid } });
 
+    const getLocationsByUserAndStatus = (uid, verified) => Location.findAll({ where: { userUid: uid, verified }});
+
     const getLocations = () => Location.findAll({ include: [{ model: User, as: 'user'}]});
 
     const getLocationsByCouncil = id =>  Location.findAll({ where: { councilUid: id }});
@@ -49,6 +51,7 @@ const User = require('../../models/user.model');
         verifyLocation,
         updateLocation,
         getLocationsByCouncil,
+        getLocationsByUserAndStatus,
         getLocations,
         deleteLocation,
         getLocationsCount,

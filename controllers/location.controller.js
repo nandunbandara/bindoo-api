@@ -98,6 +98,20 @@ const httpStatus = require('http-status');
         }
     }
 
+    const getLocationsByUserAndStatus = async (req, res) => {
+        try {
+            const result = await LocationRepository.getLocationsByUserAndStatus(req.params.uid, req.params.verified === 'true' ? true : false);
+
+            return res.status(httpStatus.OK).json({
+                success: true, data: result
+            })
+        } catch (err) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+    }
+
     const updateLocation = async (req, res) => {
 
         const { name, description, type, tax_id,
@@ -245,6 +259,7 @@ const httpStatus = require('http-status');
         updateLocation,
         getAllLocations,
         getLocationsByCouncil,
+        getLocationsByUserAndStatus,
         deleteLocation,
         getLocationCount,
         getLocationCountByCouncil,
