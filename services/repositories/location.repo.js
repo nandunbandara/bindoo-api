@@ -14,11 +14,13 @@ const User = require('../../models/user.model');
         });
     };
 
+    const getLocationById = async id => Location.findOne({ where: { id }});
+
     const getLocationsByUserId = async uid => Location.findAll({ where: { userUid: uid } });
 
     const getLocationsByUserAndStatus = (uid, verified) => Location.findAll({ where: { userUid: uid, verified }});
 
-    const getLocations = () => Location.findAll({ include: [{ model: User, as: 'user'}]});
+    const getLocations = () => Location.findAll();
 
     const getLocationsByCouncil = id =>  Location.findAll({ where: { councilUid: id }});
 
@@ -48,6 +50,7 @@ const User = require('../../models/user.model');
     module.exports = {
         createLocation,
         getLocationsByUserId,
+        getLocationById, 
         verifyLocation,
         updateLocation,
         getLocationsByCouncil,

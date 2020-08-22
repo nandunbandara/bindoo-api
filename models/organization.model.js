@@ -1,3 +1,5 @@
+const RecycledItem = require('./recycled-item.model');
+
 (() => {
 
     'use strict';
@@ -13,6 +15,8 @@
         description: DataTypes.STRING,
         email: DataTypes.STRING,
     }, { sequelize, modelName: 'organization' });
+
+    Organization.hasMany(RecycledItem);
 
     module.exports = Organization;
 

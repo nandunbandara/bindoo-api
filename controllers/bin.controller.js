@@ -1,5 +1,6 @@
 const httpStatus = require('http-status');
 const binRepo = require('../services/repositories/bin.repo');
+const { sendEvent } = require('../services/pusher.service');
 
 (() => {
 
@@ -38,7 +39,7 @@ const binRepo = require('../services/repositories/bin.repo');
             const result = await BinRepository.getBinById(req.params.id);
 
             return res.status(HTTP_STATUS.OK).json({
-                success: true, data: result
+                success: true, data: result.length > 1 ? result[0][0] : {}
             });
 
         } catch (err) {
@@ -133,18 +134,25 @@ const binRepo = require('../services/repositories/bin.repo');
         
         try {
 
-            const bin = await BinRepository.getBinById(req.params.id);
+            const binResult = await BinRepository.getBinById(req.params.id);
+            const bin = binResult[0][0];
             if (!bin) { throw new Error('bin not found for provided id'); }
 
-            if (bin.readyForCollection) {
-                throw new Error('bin is already is ready for collection state');
-            } else {
-                const result = await BinRepository
-                                        .updateReadyForCollectionStatus(req.params.id, true);
-                return res.status(HTTP_STATUS.OK).json({
-                    success: true, data: result
-                });
-            }
+
+            const status = !bin.readyForCollection;
+            
+            const result = await BinRepository
+                                        .updateReadyForCollectionStatus(req.params.id, status);
+
+            await sendEvent(
+                bin.council_uid,
+                status ? 'new_ready_for_pickup' : 'bin_ready_for_pickup_cancel',
+                bin
+            );
+
+            return res.status(HTTP_STATUS.OK).json({
+                success: true, data: result
+            });
 
         } catch (err) {
             return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({

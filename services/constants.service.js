@@ -7,10 +7,19 @@ const USER_TYPES = {
     COUNCIL_MEMBER: 2,
     ADMIN: 3,
     ORGANIZATION_MEMBER: 4,
-}
+};
+
+const RECYCLED_ITEM_STATUS = {
+    PENDING_PICKUP: 'pending_pickup',
+    PICKED_UP: 'picked_up',
+    RECYCLED: 'recycled',
+    MOVED_TO_STORE: 'moved_to_store',
+    DESTROYED: 'destroyed',
+};
 
 
 module.exports = {
     TOKEN_TYPES,
-    USER_TYPES
+    USER_TYPES,
+    RECYCLED_ITEM_STATUS
 }

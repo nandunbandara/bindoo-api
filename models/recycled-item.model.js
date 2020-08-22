@@ -1,3 +1,4 @@
+const Organization = require('./organization.model');
 (() => {
 
     'use strict';
@@ -12,6 +13,10 @@
         description: DataTypes.STRING,
         status: DataTypes.STRING,
     }, { sequelize, modelName: 'recycled_item' });
+
+    RecycledItem.associate = models => {
+        RecycledItem.hasOne(models.organization);
+    };
 
     module.exports = RecycledItem;
 

@@ -1,4 +1,5 @@
 const httpStatus = require('http-status');
+const { sendEvent } = require('../services/pusher.service');
 
 (() => {
 
@@ -149,13 +150,16 @@ const httpStatus = require('http-status');
 
         try {
 
+            const location = await LocationRepository.getLocationById(req.params.id);
+
             logger.info(`[SVC] services.controllers.location.verifyLocation: location ${req.params.id}`);
             const result = await LocationRepository.verifyLocation(req.params.id);
+
+            await sendEvent(location.userUid, 'location_verified', location);
 
             return res.status(HTTP_STATUS.OK).json({
                 success: true, data: result
             });
-
 
         } catch (err) {
             
