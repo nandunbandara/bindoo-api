@@ -14,6 +14,7 @@ const RecycledItem = require('./recycled-item.model');
         name: DataTypes.STRING,
         description: DataTypes.STRING,
         email: DataTypes.STRING,
+        stripeToken: DataTypes.STRING,
     }, { sequelize, modelName: 'organization' });
 
     Organization.hasMany(RecycledItem);

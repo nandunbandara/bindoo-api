@@ -8,4 +8,5 @@ APP_HOST=http://localhost:4200 \
 PUSHER_APP_ID=1059559 \
 PUSHER_KEY=a887b115c97b94bf99a6 \
 PUSHER_SECRET=8118791b4ed725f2baa4 \
+STRIPE_SECRET_KEY=sk_test_4hgl98stF5N2kRFzWjM4txqI00csRN1Bdr \
 nodemon index.js
