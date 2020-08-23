@@ -15,6 +15,7 @@ const Vehicle = require('./vehicle.model');
         name: DataTypes.STRING,
         description: DataTypes.STRING,
         email: DataTypes.STRING,
+        stripeToken: DataTypes.STRING,
     }, { sequelize, modelName: 'council' });
 
     Council.hasMany(Location);
