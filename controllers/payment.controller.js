@@ -1,7 +1,7 @@
 const paymentService = require('../services/stripe');
 const httpStatus = require('http-status');
 
-const createPaymentIntent = (req, res) => {
+const createPaymentIntent = async (req, res) => {
     try {
         const result = await paymentService.createSetupIntent();
 
@@ -15,7 +15,7 @@ const createPaymentIntent = (req, res) => {
     }
 }
 
-const createCharge = (req, res) => {
+const createCharge = async (req, res) => {
 
     const {amount, source, description} = req.body;
 
@@ -36,7 +36,7 @@ const createCharge = (req, res) => {
     }
 }
 
-const createCustomerWithoutToken = (req, res) => {
+const createCustomerWithoutToken = async (req, res) => {
     const {uid, email} = req.body;
 
     if (!uid || !email) {
@@ -59,7 +59,7 @@ const createCustomerWithoutToken = (req, res) => {
     }
 }
 
-const getSetupIntentClientSecret = (req, res) => {
+const getSetupIntentClientSecret = async (req, res) => {
     try {
         const result = await paymentService.createSetupIntent();
 
@@ -87,12 +87,12 @@ const attachPaymentMethodToCustomer = async (req, res) => {
 
         const result = await paymentService.attachPaymentMethodToCustomer(customerId, paymentMethodId);
 
-        return res.status(HTTP_STATUS.OK).json({
+        return res.status(httpStatus.OK).json({
             success: true, data: result
         });
 
     } catch (err) {
-        return res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
             success: false, error: err.message
         });
     }

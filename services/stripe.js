@@ -1,9 +1,7 @@
-const httpStatus = require('http-status');
-
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const createSetupIntent = () => stripe.setupIntents.create({
-    paymemt_method_types: ['cards']
+    payment_method_types: ['card']
 });
 
 const createCharge = (amount, source, description, currency = 'lkr') => stripe.charges.create({
@@ -11,10 +9,10 @@ const createCharge = (amount, source, description, currency = 'lkr') => stripe.c
 });
 
 const createCustomerWithoutToken = (uid, email) => stripe.customers.create({
-    email, description: `Customer with UID: ${req.body.uid}`
+    email, description: `Customer with UID: ${uid}`
 });
 
-const createSetupIntent = () => stripe.setupIntents.create();
+// const createSetupIntent = () => stripe.setupIntents.create();
 
 const attachPaymentMethodToCustomer = (customerId, paymentMethodId) => stripe.paymentMethods.attach(
     paymentMethodId,
