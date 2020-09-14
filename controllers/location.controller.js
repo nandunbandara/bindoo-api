@@ -18,7 +18,7 @@ const { sendEvent } = require('../services/pusher.service');
 
         const { name, description, type, tax_id,
             building_number, line_1, line_2, city,
-            councilUid} = req.body;
+            councilId} = req.body;
 
         try {
 
@@ -26,7 +26,7 @@ const { sendEvent } = require('../services/pusher.service');
             const result = await LocationRepository.createLocation(
                 name, description, type, tax_id,
                 building_number, line_1, line_2, city,
-                req.params.uid, councilUid
+                req.params.uid, councilId
             );
 
             return res.status(HTTP_STATUS.CREATED).json({
