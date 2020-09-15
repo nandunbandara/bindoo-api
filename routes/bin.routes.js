@@ -21,6 +21,8 @@
     app.put('/bins/:id/readyForCollection', RequestLogWrapper(BinController.changeBinReadyForCollectionStatus));
     app.delete('/bins/:id', RequestLogWrapper(BinController.deleteBin));
 
+    app.get('/councils/:councilUid/bins/readyForCollection/:status', RequestLogWrapper(BinController.getBinsByCouncilAndStatus));
+
   };
 
   module.exports = { init };

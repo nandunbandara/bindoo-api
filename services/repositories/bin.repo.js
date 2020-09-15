@@ -52,6 +52,17 @@ const Location = require('../../models/location.model');
         `FROM bins AS b, locations AS l WHERE b.locationId = l.id AND l.userUid = '${uid}'`
     );
 
+    const getBinsByCouncilAndStatus = (councilUid, readyForCollection) => sequelize.query(
+        `b.id as bin_id, b.name as bin_name, ` + 
+        `b.description as bin_description, ` +
+        `b.type, b.capacity, b.readyForCollection, b.createdAt, ` +
+        `b.updatedAt, l.id as location_id, l.name as location_name, ` +
+        `l.description as location_description ` + 
+        `FROM bins AS b, locations AS l. councils AS c ` +
+        `WHERE b.locationId = l.id AND l.councilUid = '${councilUid}' ` +
+        `AND b.readyForCollection = '${readyForCollection}'`
+    );
+
     module.exports = {
         createNewBinForLocation,
         updateBin,
@@ -61,7 +72,8 @@ const Location = require('../../models/location.model');
         deleteBin,
         updateReadyForCollectionStatus,
         getBinCountByUser,
-        getBinsByUser
+        getBinsByUser,
+        getBinsByCouncilAndStatus,
     };
 
 })();

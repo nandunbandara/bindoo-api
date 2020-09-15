@@ -193,7 +193,21 @@ const { sendEvent } = require('../services/pusher.service');
             });
         } catch (err) {
             return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
-                success: false, erorr: err.message
+                success: false, error: err.message
+            });
+        }
+    }
+
+    const getBinsByCouncilAndStatus =  async (req, res) => {
+        try {
+            let result = await binRepo.getBinsByCouncilAndStatus(req.params.councilUid, req.params.status);
+
+            return res.status(httpStatus.OK).json({
+                success: true, data: result
+            });
+        } catch (err) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
             });
         }
     }
@@ -208,6 +222,7 @@ const { sendEvent } = require('../services/pusher.service');
         changeBinReadyForCollectionStatus,
         getBinCountByUser,
         getBinsByUser,
+        getBinsByCouncilAndStatus
     };
 
 })();

@@ -29,6 +29,9 @@ const { sendEvent } = require('../services/pusher.service');
                 req.params.uid, councilId
             );
 
+            // send update to council
+            await sendEvent(councilId, 'new-location', result);
+
             return res.status(HTTP_STATUS.CREATED).json({
                 success: true, data: result
             });
