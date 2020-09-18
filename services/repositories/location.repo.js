@@ -1,4 +1,5 @@
 const User = require('../../models/user.model');
+const { LOCATION_STATUS } = require('../constants.service');
 
 (() => {
 
@@ -26,7 +27,7 @@ const User = require('../../models/user.model');
 
     const getLocationsByCouncil = id =>  Location.findAll({ where: { councilUid: id }});
 
-    const verifyLocation = async id => Location.update({ verified: true }, { where: { id } });
+    const verifyLocation = async id => Location.update({ verified: true, status: LOCATION_STATUS.ACTIVE }, { where: { id } });
 
     const updateLocation = async (id, name, description, type, tax_id,
         building_number, line_1, line_2, city,

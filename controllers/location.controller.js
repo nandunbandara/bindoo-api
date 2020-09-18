@@ -1,5 +1,6 @@
 const httpStatus = require('http-status');
 const { sendEvent } = require('../services/pusher.service');
+const { LOCATION_STATUS } = require('../services/constants.service');
 
 (() => {
 

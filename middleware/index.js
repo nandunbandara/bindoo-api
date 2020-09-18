@@ -15,6 +15,7 @@ const Token = require('../models/token.model');
     const Vehicle = require('../models/vehicle.model');
     // const Order = require('../models/order.model');
     const Organization = require('../models/organization.model');
+    const RecycledItem = require('../models/recycled-item.model');
 
     const Routes = require('../routes');
     const Firebase = require('./firebase');
@@ -37,6 +38,7 @@ const Token = require('../models/token.model');
         await Vehicle.sync({});
         // await Order.sync({});
         await Organization.sync({});
+        await RecycledItem.sync({});
 
         // init routes
         Routes(app);
