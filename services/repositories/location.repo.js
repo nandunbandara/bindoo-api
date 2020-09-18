@@ -20,6 +20,8 @@ const User = require('../../models/user.model');
 
     const getLocationsByUserAndStatus = (uid, verified) => Location.findAll({ where: { userUid: uid, verified }});
 
+    const getLocationByCouncilAndStatus = (councilUid, verified) => Location.findAll({ where: { councilUid, verified }});
+
     const getLocations = () => Location.findAll();
 
     const getLocationsByCouncil = id =>  Location.findAll({ where: { councilUid: id }});
@@ -34,6 +36,8 @@ const User = require('../../models/user.model');
             building_number, line_1, line_2, city,
             uid, councilUid
         }, { where: { id }});
+
+    const updateLocationStatus = (id, status) => Location.update({ status }, { where: { id }});
 
     const deleteLocation = id => Location.destroy({where: {id}});
 
@@ -62,6 +66,8 @@ const User = require('../../models/user.model');
         getPVLocationsByCouncilCount,
         getPVLocationsCount,
         getLocationCountByUser,
+        updateLocationStatus,
+        getLocationByCouncilAndStatus
     };
 
 })();

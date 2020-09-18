@@ -203,7 +203,21 @@ const { sendEvent } = require('../services/pusher.service');
             let result = await binRepo.getBinsByCouncilAndStatus(req.params.councilUid, req.params.status);
 
             return res.status(httpStatus.OK).json({
-                success: true, data: result
+                success: true, data: result[0]
+            });
+        } catch (err) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+    }
+
+    const getAllBinsByCouncil = async (req, res) => {
+        try {
+            const result = await binRepo.getBinsByCouncil(req.params.councilUid);
+
+            return res.status(httpStatus.OK).json({
+                success: true, data: result[0]
             });
         } catch (err) {
             return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
@@ -222,7 +236,8 @@ const { sendEvent } = require('../services/pusher.service');
         changeBinReadyForCollectionStatus,
         getBinCountByUser,
         getBinsByUser,
-        getBinsByCouncilAndStatus
+        getBinsByCouncilAndStatus,
+        getAllBinsByCouncil
     };
 
 })();

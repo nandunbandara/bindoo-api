@@ -2,14 +2,23 @@ const httpStatus = require("http-status");
 const vehicleRepo = require("../services/repositories/vehicle.repo");
 
 const createVehicle = async (req, res) => {
+
+    const { registration_number, model, make, capacity, councilUid } = req.body;
+
+    if (!registration_number || !model || !make || !capacity || !councilUid) {
+        return res.status(httpStatus.BAD_REQUEST).json({
+            success: false, error: 'Invalid parameters'
+        });
+    }
+
     try {
 
         const result = await vehicleRepo.createVehicle(
-            req.body.registration_number,
-            req.body.model,
-            req.body.make, 
-            req.body.capacity,
-            req.body.councilUid
+            registration_number,
+            model,
+            make, 
+            capacity,
+            councilUid
         );
 
         return res.status(httpStatus.OK).json({

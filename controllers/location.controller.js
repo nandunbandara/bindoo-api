@@ -116,6 +116,20 @@ const { sendEvent } = require('../services/pusher.service');
         }
     }
 
+    const getLocationsByCouncilAndStatus = async (req, res) => {
+        try {
+            const result = await LocationRepository.getLocationByCouncilAndStatus(req.params.councilUid, req.params.verified === 'true' ? true : false);
+
+            return res.status(httpStatus.OK).json({
+                success: true, data: result
+            });
+        } catch (err) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+    }
+
     const updateLocation = async (req, res) => {
 
         const { name, description, type, tax_id,
@@ -259,6 +273,24 @@ const { sendEvent } = require('../services/pusher.service');
         }
     }
 
+    const updateStatus = async (req, res) => {
+        try {
+            const location = await LocationRepository.getLocationById(req.params.id);
+
+            const result = await LocationRepository.updateLocationStatus(req.params.id, req.body.status);
+
+            await sendEvent(location.userUid, 'location_suspended');
+
+            return res.status(httpStatus.OK).json({
+                success: true, data: result
+            });
+        } catch (err) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+    };
+
     module.exports = {
         createLocationForUser,
         getLocationsByUser,
@@ -267,12 +299,14 @@ const { sendEvent } = require('../services/pusher.service');
         getAllLocations,
         getLocationsByCouncil,
         getLocationsByUserAndStatus,
+        getLocationsByCouncilAndStatus,
         deleteLocation,
         getLocationCount,
         getLocationCountByCouncil,
         getPVLocationCount,
         getPVLocationCountByCouncil,
-        getLocationCountByUser
+        getLocationCountByUser,
+        updateStatus
     };
 
 })();

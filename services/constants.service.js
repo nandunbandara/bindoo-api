@@ -17,9 +17,15 @@ const RECYCLED_ITEM_STATUS = {
     DESTROYED: 'destroyed',
 };
 
+const LOCATION_STATUS = {
+    ACTIVE: 'active',
+    SUSPENDED: 'suspended'
+};
+
 
 module.exports = {
     TOKEN_TYPES,
     USER_TYPES,
-    RECYCLED_ITEM_STATUS
+    RECYCLED_ITEM_STATUS,
+    LOCATION_STATUS
 }

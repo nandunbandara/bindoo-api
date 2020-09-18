@@ -53,14 +53,24 @@ const Location = require('../../models/location.model');
     );
 
     const getBinsByCouncilAndStatus = (councilUid, readyForCollection) => sequelize.query(
-        `b.id as bin_id, b.name as bin_name, ` + 
+        `SELECT DISTINCT b.id as bin_id, b.name as bin_name, ` + 
         `b.description as bin_description, ` +
         `b.type, b.capacity, b.readyForCollection, b.createdAt, ` +
         `b.updatedAt, l.id as location_id, l.name as location_name, ` +
         `l.description as location_description ` + 
-        `FROM bins AS b, locations AS l. councils AS c ` +
+        `FROM bins AS b, locations AS l, councils AS c ` +
         `WHERE b.locationId = l.id AND l.councilUid = '${councilUid}' ` +
-        `AND b.readyForCollection = '${readyForCollection}'`
+        `AND b.readyForCollection = ${readyForCollection}`
+    );
+
+    const getBinsByCouncil = councilUid => sequelize.query(
+        `SELECT DISTINCT b.id as bin_id, b.name as bin_name, ` + 
+        `b.description as bin_description, ` +
+        `b.type, b.capacity, b.readyForCollection, b.createdAt, ` +
+        `b.updatedAt, l.id as location_id, l.name as location_name, ` +
+        `l.description as location_description ` + 
+        `FROM bins AS b, locations AS l, councils AS c ` +
+        `WHERE b.locationId = l.id AND l.councilUid = '${councilUid}'`
     );
 
     module.exports = {
@@ -74,6 +84,7 @@ const Location = require('../../models/location.model');
         getBinCountByUser,
         getBinsByUser,
         getBinsByCouncilAndStatus,
+        getBinsByCouncil,
     };
 
 })();
