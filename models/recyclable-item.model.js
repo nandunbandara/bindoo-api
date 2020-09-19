@@ -7,9 +7,9 @@ const { RECYCLED_ITEM_STATUS } = require('../services/constants.service');
     const { Model, DataTypes } = require('sequelize');
     const sequelize = require('../middleware/database').getConnection();
 
-    class RecycledItem extends Model {}
+    class RecyclableItem extends Model {}
 
-    RecycledItem.init({
+    RecyclableItem.init({
         name: DataTypes.STRING,
         description: DataTypes.STRING,
         status: { 
@@ -17,13 +17,10 @@ const { RECYCLED_ITEM_STATUS } = require('../services/constants.service');
             defaultValue: RECYCLED_ITEM_STATUS.PENDING_PICKUP 
         },
         photo: DataTypes.STRING,
-    }, { sequelize, modelName: 'recycled_item' });
+    }, { sequelize, modelName: 'recyclable_items' });
 
-    RecycledItem.associate = models => {
-        RecycledItem.belongsTo(models.user, { foreignKey: 'uid', as: 'user'});
-        RecycledItem.belongs(models.organization);
-    };
+    Organization.hasMany(RecyclableItem);
 
-    module.exports = RecycledItem;
+    module.exports = RecyclableItem;
 
 })();

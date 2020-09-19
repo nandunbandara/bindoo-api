@@ -1,4 +1,4 @@
-const RecycledItem = require('./recycled-item.model');
+const RecyclableItem = require('./recyclable-item.model');
 
 (() => {
 
@@ -16,8 +16,6 @@ const RecycledItem = require('./recycled-item.model');
         email: DataTypes.STRING,
         stripeToken: { type: DataTypes.STRING, defaultValue: '' }
     }, { sequelize, modelName: 'organization' });
-
-    Organization.hasMany(RecycledItem);
 
     module.exports = Organization;
 
