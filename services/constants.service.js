@@ -22,10 +22,16 @@ const LOCATION_STATUS = {
     SUSPENDED: 'suspended'
 };
 
+const ORDER_STATUS = {
+    PENDING: 'pending',
+    DELIVERED: 'delivered'
+};
+
 
 module.exports = {
     TOKEN_TYPES,
     USER_TYPES,
     RECYCLED_ITEM_STATUS,
-    LOCATION_STATUS
+    LOCATION_STATUS,
+    ORDER_STATUS,
 }

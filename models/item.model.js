@@ -13,8 +13,11 @@ const Order = require('./order.model');
         name: DataTypes.STRING,
         description: DataTypes.STRING,
         quantity: DataTypes.INTEGER,
-        image: DataTypes.STRING,
+        photo: DataTypes.STRING,
+        status: DataTypes.STRING, // available, sold out
     }, { sequelize, modelName: 'item' });
+
+    Order.hasMany(Item);
 
     module.exports = Item;
 
