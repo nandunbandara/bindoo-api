@@ -1,4 +1,6 @@
 const httpStatus = require('http-status');
+const { sendEvent } = require('../services/pusher.service');
+const { LOCATION_STATUS } = require('../services/constants.service');
 
 (() => {
 
@@ -17,7 +19,7 @@ const httpStatus = require('http-status');
 
         const { name, description, type, tax_id,
             building_number, line_1, line_2, city,
-            councilUid} = req.body;
+            councilId} = req.body;
 
         try {
 
@@ -25,8 +27,11 @@ const httpStatus = require('http-status');
             const result = await LocationRepository.createLocation(
                 name, description, type, tax_id,
                 building_number, line_1, line_2, city,
-                req.params.uid, councilUid
+                req.params.uid, councilId
             );
+
+            // send update to council
+            await sendEvent(councilId, 'new-location', result);
 
             return res.status(HTTP_STATUS.CREATED).json({
                 success: true, data: result
@@ -98,6 +103,34 @@ const httpStatus = require('http-status');
         }
     }
 
+    const getLocationsByUserAndStatus = async (req, res) => {
+        try {
+            const result = await LocationRepository.getLocationsByUserAndStatus(req.params.uid, req.params.verified === 'true' ? true : false);
+
+            return res.status(httpStatus.OK).json({
+                success: true, data: result
+            })
+        } catch (err) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+    }
+
+    const getLocationsByCouncilAndStatus = async (req, res) => {
+        try {
+            const result = await LocationRepository.getLocationByCouncilAndStatus(req.params.councilUid, req.params.verified === 'true' ? true : false);
+
+            return res.status(httpStatus.OK).json({
+                success: true, data: result
+            });
+        } catch (err) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+    }
+
     const updateLocation = async (req, res) => {
 
         const { name, description, type, tax_id,
@@ -135,13 +168,16 @@ const httpStatus = require('http-status');
 
         try {
 
+            const location = await LocationRepository.getLocationById(req.params.id);
+
             logger.info(`[SVC] services.controllers.location.verifyLocation: location ${req.params.id}`);
             const result = await LocationRepository.verifyLocation(req.params.id);
+
+            await sendEvent(location.userUid, 'location_verified', location);
 
             return res.status(HTTP_STATUS.OK).json({
                 success: true, data: result
             });
-
 
         } catch (err) {
             
@@ -238,6 +274,24 @@ const httpStatus = require('http-status');
         }
     }
 
+    const updateStatus = async (req, res) => {
+        try {
+            const location = await LocationRepository.getLocationById(req.params.id);
+
+            const result = await LocationRepository.updateLocationStatus(req.params.id, req.body.status);
+
+            await sendEvent(location.userUid, 'location_suspended');
+
+            return res.status(httpStatus.OK).json({
+                success: true, data: result
+            });
+        } catch (err) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                success: false, error: err.message
+            });
+        }
+    };
+
     module.exports = {
         createLocationForUser,
         getLocationsByUser,
@@ -245,12 +299,15 @@ const httpStatus = require('http-status');
         updateLocation,
         getAllLocations,
         getLocationsByCouncil,
+        getLocationsByUserAndStatus,
+        getLocationsByCouncilAndStatus,
         deleteLocation,
         getLocationCount,
         getLocationCountByCouncil,
         getPVLocationCount,
         getPVLocationCountByCouncil,
-        getLocationCountByUser
+        getLocationCountByUser,
+        updateStatus
     };
 
 })();

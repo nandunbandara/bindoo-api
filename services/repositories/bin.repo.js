@@ -22,7 +22,14 @@ const Location = require('../../models/location.model');
 
     const getBinsByLocation = id => Bin.findAll({ where: { locationId: id } });
 
-    const getBinById = id => Bin.findOne({ where: { id } });
+    const getBinById = id => sequelize.query(`SELECT ` + 
+        `b.id as bin_id, b.name as bin_name, ` + 
+        `b.description as bin_description, ` +
+        `b.type, b.capacity, b.readyForCollection, b.createdAt, ` +
+        `b.updatedAt, l.id as location_id, l.name as location_name, ` +
+        `l.description as location_description, c.uid as council_uid ` + 
+        `FROM bins AS b, locations AS l, councils as c WHERE b.locationId = l.id AND ` + 
+        `b.id = '${id}' AND c.uid = l.councilUid`);
 
     const getBinsByStatus = status => Bin.findAll({ where: { readyForCollection: status }, include: [ { model: Location, as: 'location' } ] });
 
@@ -45,6 +52,27 @@ const Location = require('../../models/location.model');
         `FROM bins AS b, locations AS l WHERE b.locationId = l.id AND l.userUid = '${uid}'`
     );
 
+    const getBinsByCouncilAndStatus = (councilUid, readyForCollection) => sequelize.query(
+        `SELECT DISTINCT b.id as bin_id, b.name as bin_name, ` + 
+        `b.description as bin_description, ` +
+        `b.type, b.capacity, b.readyForCollection, b.createdAt, ` +
+        `b.updatedAt, l.id as location_id, l.name as location_name, ` +
+        `l.description as location_description ` + 
+        `FROM bins AS b, locations AS l, councils AS c ` +
+        `WHERE b.locationId = l.id AND l.councilUid = '${councilUid}' ` +
+        `AND b.readyForCollection = ${readyForCollection}`
+    );
+
+    const getBinsByCouncil = councilUid => sequelize.query(
+        `SELECT DISTINCT b.id as bin_id, b.name as bin_name, ` + 
+        `b.description as bin_description, ` +
+        `b.type, b.capacity, b.readyForCollection, b.createdAt, ` +
+        `b.updatedAt, l.id as location_id, l.name as location_name, ` +
+        `l.description as location_description ` + 
+        `FROM bins AS b, locations AS l, councils AS c ` +
+        `WHERE b.locationId = l.id AND l.councilUid = '${councilUid}'`
+    );
+
     module.exports = {
         createNewBinForLocation,
         updateBin,
@@ -54,7 +82,9 @@ const Location = require('../../models/location.model');
         deleteBin,
         updateReadyForCollectionStatus,
         getBinCountByUser,
-        getBinsByUser
+        getBinsByUser,
+        getBinsByCouncilAndStatus,
+        getBinsByCouncil,
     };
 
 })();

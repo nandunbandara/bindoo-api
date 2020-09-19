@@ -28,7 +28,9 @@
     "http-status": "^1.4.2",
     "mysql2": "^2.1.0",
     "node-mailjet": "^3.3.1",
+    "pusher": "^3.0.1",
     "sequelize": "^5.21.3",
+    "stripe": "^8.92.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {

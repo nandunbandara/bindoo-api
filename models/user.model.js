@@ -1,3 +1,5 @@
+const RecyclableItem = require('./recyclable-item.model');
+
 (() => {
 
     'use strict';
@@ -21,6 +23,14 @@
     User.hasMany(Location, {
         onDelete: 'CASCADE'
     });
+
+    User.hasMany(RecyclableItem, 
+        { 
+            foreignKey: 'userUid', 
+            as: 'user',
+            onDelete: 'CASCADE'
+        }
+    );
 
     module.exports = User;
 

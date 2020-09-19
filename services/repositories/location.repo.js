@@ -1,4 +1,5 @@
 const User = require('../../models/user.model');
+const { LOCATION_STATUS } = require('../constants.service');
 
 (() => {
 
@@ -14,13 +15,19 @@ const User = require('../../models/user.model');
         });
     };
 
+    const getLocationById = async id => Location.findOne({ where: { id }});
+
     const getLocationsByUserId = async uid => Location.findAll({ where: { userUid: uid } });
 
-    const getLocations = () => Location.findAll({ include: [{ model: User, as: 'user'}]});
+    const getLocationsByUserAndStatus = (uid, verified) => Location.findAll({ where: { userUid: uid, verified }});
+
+    const getLocationByCouncilAndStatus = (councilUid, verified) => Location.findAll({ where: { councilUid, verified }});
+
+    const getLocations = () => Location.findAll();
 
     const getLocationsByCouncil = id =>  Location.findAll({ where: { councilUid: id }});
 
-    const verifyLocation = async id => Location.update({ verified: true }, { where: { id } });
+    const verifyLocation = async id => Location.update({ verified: true, status: LOCATION_STATUS.ACTIVE }, { where: { id } });
 
     const updateLocation = async (id, name, description, type, tax_id,
         building_number, line_1, line_2, city,
@@ -30,6 +37,8 @@ const User = require('../../models/user.model');
             building_number, line_1, line_2, city,
             uid, councilUid
         }, { where: { id }});
+
+    const updateLocationStatus = (id, status) => Location.update({ status }, { where: { id }});
 
     const deleteLocation = id => Location.destroy({where: {id}});
 
@@ -46,9 +55,11 @@ const User = require('../../models/user.model');
     module.exports = {
         createLocation,
         getLocationsByUserId,
+        getLocationById, 
         verifyLocation,
         updateLocation,
         getLocationsByCouncil,
+        getLocationsByUserAndStatus,
         getLocations,
         deleteLocation,
         getLocationsCount,
@@ -56,6 +67,8 @@ const User = require('../../models/user.model');
         getPVLocationsByCouncilCount,
         getPVLocationsCount,
         getLocationCountByUser,
+        updateLocationStatus,
+        getLocationByCouncilAndStatus
     };
 
 })();

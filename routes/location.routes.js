@@ -15,6 +15,10 @@
         app.get('/locations/status/count', RequestLogWrapper(LocationController.getPVLocationCount));
         app.get('/councils/:id/locations/status/count', RequestLogWrapper(LocationController.getPVLocationCountByCouncil));
 
+        app.get('/users/:uid/locations/verified/:verified', RequestLogWrapper(LocationController.getLocationsByUserAndStatus));
+        app.get('/councils/:councilUid/locations/verified/:verified', RequestLogWrapper(LocationController.getLocationsByCouncilAndStatus));
+        app.put('/locations/:id/status', RequestLogWrapper(LocationController.updateStatus));
+
         app.post('/users/:uid/locations', RequestLogWrapper(LocationController.createLocationForUser));
         app.get('/users/:uid/locations', RequestLogWrapper(LocationController.getLocationsByUser));
         app.get('/locations', RequestLogWrapper(LocationController.getAllLocations));
