@@ -43,7 +43,7 @@ const createRecycledItem = async (req, res) => {
  */
 const getRecyclableItemsByUser = async (req, res) => {
 
-    const { status } = req.query;
+    const status = req.query.status !== 'undefined' && req.query.status;
 
     if (status && !Object.keys(RECYCLED_ITEM_STATUS).includes(status)) {
         return res.status(httpStatus.BAD_REQUEST).json({
@@ -77,7 +77,7 @@ const getRecyclableItemsByUser = async (req, res) => {
  */
 const getRecyclableItemsByCouncil = async (req, res) => {
 
-    const { status } = req.query;
+    const status = req.query.status !== 'undefined' && req.query.status;
 
     if (status && !Object.keys(RECYCLED_ITEM_STATUS).includes(status)) {
         return res.status(httpStatus.BAD_REQUEST).json({
@@ -113,7 +113,7 @@ const getRecyclableItemsByCouncil = async (req, res) => {
  */
 const getAllRecyclableItems = async (req, res) => {
 
-    const { status } = req.query;
+    const status = req.query.status !== 'undefined' && req.query.status;
 
     if (status && !Object.keys(RECYCLED_ITEM_STATUS).includes(status)) {
         return res.status(httpStatus.BAD_REQUEST).json({
