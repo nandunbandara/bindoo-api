@@ -2,6 +2,7 @@ const httpStatus = require("http-status");
 const recyclableItemRepo = require("../services/repositories/recyclable-item.repo");
 const { RECYCLED_ITEM_STATUS } = require("../services/constants.service");
 const { sendEvent } = require("../services/pusher.service");
+const { getRecyclableItemsByStatus } = require("../services/repositories/recyclable-item.repo");
 
 /**
  * 
@@ -28,6 +29,112 @@ const createRecycledItem = async (req, res) => {
         return res.status(httpStatus.CREATED).json({
             success: true, data: result
         });
+    } catch (err) {
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+            success: false, error: err.message
+        });
+    }
+};
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+const getRecyclableItemsByUser = async (req, res) => {
+
+    const { status } = req.query;
+
+    if (status && !Object.keys(RECYCLED_ITEM_STATUS).includes(status)) {
+        return res.status(httpStatus.BAD_REQUEST).json({
+            success: false, error: 'Invalid parameter \'status\'',
+            data: {
+                required: Object.keys(RECYCLED_ITEM_STATUS),
+                received: status
+            }
+        });
+    }
+
+    try {
+        const result = status ? 
+            await recyclableItemRepo.getRecyclableItemsByUserAndStatus(req.params.userUid, status) :
+            await recyclableItemRepo.getRecyclableItemsByUser(req.params.userUid);
+        
+        return res.status(httpStatus.OK).json({
+            success: true, data: result
+        });
+    } catch (err) {
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+            success: false, error: err.message
+        });
+    }
+};
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+const getRecyclableItemsByCouncil = async (req, res) => {
+
+    const { status } = req.query;
+
+    if (status && !Object.keys(RECYCLED_ITEM_STATUS).includes(status)) {
+        return res.status(httpStatus.BAD_REQUEST).json({
+            success: false, error: 'Invalid parameter \'status\'',
+            data: {
+                required: Object.keys(RECYCLED_ITEM_STATUS),
+                received: status
+            }
+        });
+    }
+
+    try {
+
+        const result = status ? 
+            await recyclableItemRepo.getRecyclableItemsByCouncilAndStatus(req.params.councilUid, status) :
+            await recyclableItemRepo.getRecyclableItemsByCouncil(req.params.councilUid);
+
+        return res.status(httpStatus.OK).json({
+            success: true, data: result
+        });
+
+    } catch (err) {
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+            success: false, error: err.message
+        });
+    }
+};
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+const getAllRecyclableItems = async (req, res) => {
+
+    const { status } = req.query;
+
+    if (status && !Object.keys(RECYCLED_ITEM_STATUS).includes(status)) {
+        return res.status(httpStatus.BAD_REQUEST).json({
+            success: false, error: 'Invalid parameter \'status\'',
+            data: {
+                required: Object.keys(RECYCLED_ITEM_STATUS),
+                received: status
+            }
+        });
+    }
+
+    try {
+
+        const result = status ? 
+            await getRecyclableItemsByStatus(status) : 
+            await getAllRecyclableItems();
+
+        return res.status(httpStatus.OK).json({
+            success: true, data: result
+        });
+
     } catch (err) {
         return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
             success: false, error: err.message
@@ -77,5 +184,8 @@ const updateRecycledItemStatus = async (req, res) => {
 
 module.exports = {
     createRecycledItem,
+    getAllRecyclableItems,
+    getRecyclableItemsByCouncil,
+    getRecyclableItemsByUser,
     updateRecycledItemStatus
 }
