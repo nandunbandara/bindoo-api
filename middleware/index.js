@@ -1,4 +1,6 @@
 const Token = require('../models/token.model');
+const Order = require('../models/order.model');
+const Allocation = require('../models/allocation.model');
 
 (() => {
 
@@ -39,6 +41,8 @@ const Token = require('../models/token.model');
         // await Order.sync({});
         await Organization.sync({});
         await RecyclableItem.sync({});
+        await Order.sync({});
+        await Allocation.sync({});
 
         // init routes
         Routes(app);

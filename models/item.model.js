@@ -1,4 +1,5 @@
 const Order = require('./order.model');
+const { ITEM_STATUS } = require('../services/constants.service');
 
 (() => {
 
@@ -14,7 +15,7 @@ const Order = require('./order.model');
         description: DataTypes.STRING,
         quantity: DataTypes.INTEGER,
         photo: DataTypes.STRING,
-        status: DataTypes.STRING, // available, sold out
+        status: { type: DataTypes.STRING, default: ITEM_STATUS.AVAILABLE }
     }, { sequelize, modelName: 'item' });
 
     Order.hasMany(Item);
