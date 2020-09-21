@@ -19,7 +19,7 @@ const { LOCATION_STATUS } = require('../services/constants.service');
 
         const { name, description, type, tax_id,
             building_number, line_1, line_2, city,
-            councilId} = req.body;
+            councilId, laneId } = req.body;
 
         try {
 
@@ -27,7 +27,7 @@ const { LOCATION_STATUS } = require('../services/constants.service');
             const result = await LocationRepository.createLocation(
                 name, description, type, tax_id,
                 building_number, line_1, line_2, city,
-                req.params.uid, councilId
+                req.params.uid, councilId, laneId
             );
 
             // send update to council

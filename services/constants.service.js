@@ -32,6 +32,16 @@ const ITEM_STATUS = {
     SOLD_OUT: 'sold_out',
 };
 
+const ALLOCATION_STATUS = {
+    PENDING: 'pending',
+    COMPLETED: 'completed',
+};
+
+const INVOICE_STATUS = {
+    UNPAID: 'unpaid',
+    PAID: 'paid'
+};
+
 
 module.exports = {
     TOKEN_TYPES,
@@ -39,5 +49,7 @@ module.exports = {
     RECYCLED_ITEM_STATUS,
     LOCATION_STATUS,
     ORDER_STATUS,
-    ITEM_STATUS
+    ITEM_STATUS,
+    ALLOCATION_STATUS,
+    INVOICE_STATUS
 }

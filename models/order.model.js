@@ -17,8 +17,11 @@ const Organization = require('./organization.model');
         status: { type: DataTypes.STRING, defaultValue: ORDER_STATUS.PENDING },
     }, { sequelize, modelName: 'order' });
 
-    Order.hasOne(User);
-    Order.hasOne(Organization);
+    Order.belongsTo(User);
+    Order.belongsTo(Organization);
+
+    User.hasMany(Order);
+    Organization.hasMany(Order);
 
     module.exports = Order;
 

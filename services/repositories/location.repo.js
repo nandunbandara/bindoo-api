@@ -7,11 +7,11 @@ const { LOCATION_STATUS } = require('../constants.service');
 
     const Location = require('../../models/location.model');
 
-    const createLocation = async (name, description, type, tax_id, building_number, line_1, line_2, city, uid, councilUid) => {
+    const createLocation = async (name, description, type, tax_id, building_number, line_1, line_2, city, uid, councilUid, laneId) => {
         return Location.create({
             name, description, type, tax_id,
             building_number, line_1, line_2, city,
-            userUid: uid, councilUid
+            userUid: uid, councilUid, laneId
         });
     };
 

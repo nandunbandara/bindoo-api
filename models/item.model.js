@@ -1,5 +1,6 @@
 const Order = require('./order.model');
 const { ITEM_STATUS } = require('../services/constants.service');
+const OrderItem = require('./order-item.model');
 
 (() => {
 
@@ -18,7 +19,7 @@ const { ITEM_STATUS } = require('../services/constants.service');
         status: { type: DataTypes.STRING, default: ITEM_STATUS.AVAILABLE }
     }, { sequelize, modelName: 'item' });
 
-    Order.hasMany(Item);
+    // Item.belongsToMany(Order, { through: OrderItem });
 
     module.exports = Item;
 
