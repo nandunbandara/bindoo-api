@@ -3,6 +3,7 @@ const organizationRoutes = require('./organization.routes');
 const vehicleRoutes = require('./vehicle.routes');
 const paymentRoutes = require('./payment.routes');
 const recyclableItemRoutes = require('./recyclable-item.routes');
+const laneRoutes = require('./lane.routes');
 
 (() => {
 
@@ -21,6 +22,7 @@ const recyclableItemRoutes = require('./recyclable-item.routes');
         vehicleRoutes.init(app);
         paymentRoutes.init(app);
         recyclableItemRoutes.init(app);
+        laneRoutes.init(app);
     };
 
     module.exports = init;

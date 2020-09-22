@@ -1,7 +1,7 @@
 const httpStatus = require("http-status");
 const laneRepo = require("../services/repositories/lane.repo");
 
-const createLane = (req, res) => {
+const createLane = async (req, res) => {
 
     const { name, councilUid } = req.body;
 
@@ -25,8 +25,33 @@ const createLane = (req, res) => {
 
 }
 
-const getLanesByCouncil = (req, res) => {
+const getLanesByCouncil = async (req, res) => {
+    try {
+        const result = await laneRepo.getLanesByCouncil(req.params.id);
+
+        return res.status(httpStatus.OK).json({
+            success: true, data: result
+        });
+    } catch (err) {
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+            success: false, error: err.message
+        });
+    }
     
+}
+
+const getAmountofGarabageByLanesByCouncil = async (req, res) => {
+    try {
+        const result = await laneRepo.getAmountOfGarbageByLanesByCouncil(req.params.id);
+
+        return res.status(httpStatus.OK).json({
+            success: true, data: result[0]
+        });
+    } catch (err) {
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+            success: false, error: err.message
+        });
+    }
 }
 
 const updateLane = (req, res) => {
@@ -41,5 +66,6 @@ module.exports = {
     createLane,
     getLanesByCouncil,
     updateLane,
-    deleteLane
+    deleteLane,
+    getAmountofGarabageByLanesByCouncil
 }
