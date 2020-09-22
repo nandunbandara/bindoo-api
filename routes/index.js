@@ -4,6 +4,7 @@ const vehicleRoutes = require('./vehicle.routes');
 const paymentRoutes = require('./payment.routes');
 const recyclableItemRoutes = require('./recyclable-item.routes');
 const laneRoutes = require('./lane.routes');
+const pickupListRoutes = require('./pickup-list.routes');
 
 (() => {
 
@@ -23,6 +24,7 @@ const laneRoutes = require('./lane.routes');
         paymentRoutes.init(app);
         recyclableItemRoutes.init(app);
         laneRoutes.init(app);
+        pickupListRoutes.init(app);
     };
 
     module.exports = init;

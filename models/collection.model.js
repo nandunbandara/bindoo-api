@@ -1,8 +1,8 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require('../middleware/database').getConnection();
-const User = require('../models/user.model');
-const Location = require('../models/location.model');
 const Council  = require('../models/council.model');
+const Lane = require("./lane.model");
+
 (() => {
     
     'use strict';
@@ -14,13 +14,11 @@ const Council  = require('../models/council.model');
         amount: DataTypes.FLOAT,
     }, { sequelize, modelName: 'collection' });
 
-    Collection.belongsTo(User);
-    Collection.belongsTo(Location);
     Collection.belongsTo(Council);
+    Collection.belongsTo(Lane);
 
-    User.hasMany(Collection);
-    Location.hasMany(Collection);
     Council.hasMany(Collection);
+    Lane.hasMany(Collection);
     
     module.exports = Collection;
 })();

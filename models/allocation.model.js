@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
-const Bin = require("./bin.model");
+const Lane = require('./lane.model');
 const Vehicle = require("./vehicle.model");
 const sequelize = require('../middleware/database').getConnection();
 const { ALLOCATION_STATUS } = require('../services/constants.service'); 
@@ -14,10 +14,10 @@ const { ALLOCATION_STATUS } = require('../services/constants.service');
         status: { type: DataTypes.STRING, defaultValue: ALLOCATION_STATUS.PENDING }
     }, { sequelize, modelName: 'allocation' });
 
-    Allocation.belongsTo(Bin);
+    Allocation.belongsTo(Lane);
     Allocation.belongsTo(Vehicle);
 
-    Bin.hasMany(Allocation);
+    Lane.hasMany(Allocation);
     Vehicle.hasMany(Allocation);
 
     module.exports = Allocation;

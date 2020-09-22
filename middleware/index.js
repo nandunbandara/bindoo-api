@@ -19,6 +19,9 @@ const RecyclableItem = require('../models/recyclable-item.model');
 const Routes = require('../routes');
 const Firebase = require('./firebase');
 const Invoice = require('../models/invoice.model');
+const Collection = require('../models/collection.model');
+const PickupList = require('../models/pickup-list.model');
+const PickupListItem = require('../models/pickup-list-item.model.');
 
 (() => {
 
@@ -44,6 +47,9 @@ const Invoice = require('../models/invoice.model');
         await Organization.sync({});
         await RecyclableItem.sync({});
         await Allocation.sync({});
+        await Collection.sync({});
+        await PickupList.sync({});
+        await PickupListItem.sync({});
 
         await Order.sync({});
         await Item.sync({});

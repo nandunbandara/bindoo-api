@@ -42,6 +42,11 @@ const INVOICE_STATUS = {
     PAID: 'paid'
 };
 
+const PICKUP_LIST_ITEM_STATUS = {
+    ALLOCATED: 'allocated',
+    UNALLOCATED: 'unallocated'
+};
+
 
 module.exports = {
     TOKEN_TYPES,
@@ -51,5 +56,6 @@ module.exports = {
     ORDER_STATUS,
     ITEM_STATUS,
     ALLOCATION_STATUS,
-    INVOICE_STATUS
+    INVOICE_STATUS,
+    PICKUP_LIST_ITEM_STATUS
 }
