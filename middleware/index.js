@@ -38,19 +38,20 @@ const PickupListItem = require('../models/pickup-list-item.model.');
         // create tables
         await User.sync({});
         await Council.sync({});
-
-        await Location.sync({});
-        await Bin.sync({});
-        await Token.sync({});
-        
         await Lane.sync({});
         await Vehicle.sync({});
-        await Organization.sync({});
-        await RecyclableItem.sync({});
+        await Location.sync({});
+        await Bin.sync({});
         await Allocation.sync({});
         await Collection.sync({});
         await PickupList.sync({});
         await PickupListItem.sync({});
+        
+        await Token.sync({});
+        
+        await Organization.sync({});
+        await RecyclableItem.sync({});
+        
 
         await Order.sync({});
         await Item.sync({});
