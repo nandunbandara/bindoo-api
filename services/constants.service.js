@@ -44,7 +44,8 @@ const INVOICE_STATUS = {
 
 const PICKUP_LIST_ITEM_STATUS = {
     ALLOCATED: 'allocated',
-    UNALLOCATED: 'unallocated'
+    UNALLOCATED: 'unallocated',
+    COMPLETED: 'completed'
 };
 
 

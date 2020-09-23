@@ -7,7 +7,8 @@ const createPickupList = (councilUid, date = Date.now()) => PickupList.create({
 });
 
 const getPickupListByCouncilAndDate = (councilUid, date) => sequelize.query(
-    `SELECT * FROM pickup_lists p, pickup_list_items i, lanes l ` + 
+    `SELECT p.id as pickListId, p.date, i.id as pickupListItemId, i.status, i.vehicleId, i.allocationId, i.amount, l.id as laneId, l.name ` +  
+    `FROM pickup_lists p, pickup_list_items i, lanes l ` + 
     `WHERE p.id = i.pickupListId AND l.id = i.laneId ` + 
     `AND p.councilUid = '${councilUid}' AND p.date = '${date}'`
 );
@@ -18,9 +19,14 @@ const createPickupListItem = (pickupListId, laneId, amount) => PickupListItem.cr
 
 const deletePickupList = id => PickupList.destroy({ where: { id }});
 
+const updatePickListItemStatusAndVehicle = (id, status, vehicleId, allocationId) => PickupListItem.update(
+    { status, vehicleId, allocationId }, { where: { id }}
+);
+
 module.exports = {
     createPickupList,
     getPickupListByCouncilAndDate,
     createPickupListItem,
-    deletePickupList
+    deletePickupList,
+    updatePickListItemStatusAndVehicle
 };

@@ -5,7 +5,7 @@ const createNewAllocation = (councilUid, laneId, vehicleId, amount, date = new D
     councilUid, laneId, vehicleId, date, amount
 });
 
-const removeAllocation = id => Allocation.destroy(id);
+const removeAllocation = id => Allocation.destroy({ where: {id}});
 
 const updateAllocationStatus = (id, status) => Allocation.update({ status }, { where: { id }});
 
@@ -23,7 +23,7 @@ const getVehicleAllocations = councilUid => sequelize.query(
     `SELECT v.id, v.registration_number, v.model, v.make, v.capacity, 
     COALESCE(SUM(a.amount), 0) as allocated_amount, (capacity - COALESCE(SUM(a.amount), 0)) as available
     FROM vehicles v LEFT JOIN allocations a on a.vehicleId = v.id
-    WHERE v.councilUid = '${councilUid}'
+    WHERE v.councilUid = '${councilUid}' AND a.status = 'pending' OR a.status IS NULL 
     GROUP BY v.id`
 );
 

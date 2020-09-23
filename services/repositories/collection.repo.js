@@ -4,9 +4,9 @@ const createCollection = (laneId, councilUid, amount, date = new Date()) => Coll
     laneId, councilUid, date, amount
 });
 
-const getAllCollections = () => Collection.findAll();
+const getAllCollectionsByCouncil = councilUid => Collection.findAll({ where: { councilUid }});
 
 module.exports = {
     createCollection,
-    getAllCollections
+    getAllCollectionsByCouncil
 }

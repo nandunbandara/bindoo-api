@@ -1,6 +1,7 @@
 const httpStatus = require("http-status");
 const laneRepo = require("../services/repositories/lane.repo");
 const pickupListRepo = require("../services/repositories/pickup-list.repo");
+const allocationRepo = require("../services/repositories/allocation.repo");
 
 const createPickupList = async (req, res) => {
     try {
