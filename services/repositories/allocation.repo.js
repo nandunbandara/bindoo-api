@@ -20,11 +20,11 @@ const getAllAllocationsByDateAndCouncil = (date, councilUid) => sequelize.query(
 );
 
 const getVehicleAllocations = councilUid => sequelize.query(
-    `select distinct v.id, v.registration_number, v.model, v.make, v.capacity, 
-    coalesce(sum(a.amount), 0) as allocated_amount, (capacity - coalesce(sum(a.amount), 0)) as available
-    from vehicles v left join allocations a on a.vehicleId = v.id
-    where v.councilUid = '${councilUid}'
-    group by v.id`
+    `SELECT v.id, v.registration_number, v.model, v.make, v.capacity, 
+    COALESCE(SUM(a.amount), 0) as allocated_amount, (capacity - COALESCE(SUM(a.amount), 0)) as available
+    FROM vehicles v LEFT JOIN allocations a on a.vehicleId = v.id
+    WHERE v.councilUid = '${councilUid}'
+    GROUP BY v.id`
 );
 
 module.exports = {
