@@ -1,4 +1,6 @@
 const Order = require('./order.model');
+const { ITEM_STATUS } = require('../services/constants.service');
+const OrderItem = require('./order-item.model');
 
 (() => {
 
@@ -13,8 +15,11 @@ const Order = require('./order.model');
         name: DataTypes.STRING,
         description: DataTypes.STRING,
         quantity: DataTypes.INTEGER,
-        image: DataTypes.STRING,
+        photo: DataTypes.STRING,
+        status: { type: DataTypes.STRING, default: ITEM_STATUS.AVAILABLE }
     }, { sequelize, modelName: 'item' });
+
+    // Item.belongsToMany(Order, { through: OrderItem });
 
     module.exports = Item;
 

@@ -6,7 +6,7 @@
     const logger = require('./middleware/logger');
     const middleware = require('./middleware');
     
-    const PORT = process.env.PORT | 9080;
+    const PORT = process.env.PORT || 9080;
 
     const app = express();
     middleware(app);
