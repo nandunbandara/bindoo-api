@@ -51,7 +51,6 @@ const PickupListItem = require('../models/pickup-list-item.model.');
         
         await Organization.sync({});
         await RecyclableItem.sync({});
-        
 
         await Order.sync({});
         await Item.sync({});
